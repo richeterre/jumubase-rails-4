@@ -1,0 +1,5 @@
+<h1>Hello</h1>
+
+<p>You're currently signed in as <%= current_user.email %></p>
+
+<p><%= button_to "Log out", destroy_user_session_path, method: :delete %></p>
