@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160116183419) do
+ActiveRecord::Schema.define(version: 20160116223709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contests", force: :cascade do |t|
+    t.integer  "season",           null: false
+    t.integer  "level",            null: false
+    t.integer  "host_id",          null: false
+    t.date     "begins",           null: false
+    t.date     "ends",             null: false
+    t.date     "certificate_date"
+    t.datetime "signup_deadline",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "hosts", force: :cascade do |t|
     t.string   "name",         null: false
