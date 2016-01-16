@@ -23,6 +23,21 @@ RSpec.describe Host, type: :model do
     it { should_not be_valid }
   end
 
+  describe "with a lowercase country code" do
+    before { host.country_code = "ab" }
+    it { should_not be_valid }
+  end
+
+  describe "with a too short country code" do
+    before { host.country_code = "A" }
+    it { should_not be_valid }
+  end
+
+  describe "with a too long country code" do
+    before { host.country_code = "ABC" }
+    it { should_not be_valid }
+  end
+
   describe "without a time zone" do
     before { host.time_zone = nil }
     it { should_not be_valid }
