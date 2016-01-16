@@ -28,6 +28,8 @@ gem 'devise'
 group :development, :test do
   # Use RSpec for tests
   gem 'rspec-rails', '~> 3.0'
+  # Use Factory Girl to generate valid models
+  gem 'factory_girl_rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
