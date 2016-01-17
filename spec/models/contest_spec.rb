@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Contest, type: :model do
 
-  let (:contest) { FactoryGirl.build(:contest) }
+  let (:contest) { build(:contest) }
 
   subject { contest }
 
