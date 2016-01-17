@@ -1,8 +1,6 @@
-class PagesController < ActionController::Base
-
-  before_action :authenticate_user!
+class PagesController < ApplicationController
+  after_action :skip_authorization
 
   def home
   end
-
 end

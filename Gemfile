@@ -25,6 +25,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Devise for authentication
 gem 'devise'
 
+# Use Pundit for authorization
+gem 'pundit'
+
 group :development, :test do
   # Use RSpec for tests
   gem 'rspec-rails', '~> 3.0'

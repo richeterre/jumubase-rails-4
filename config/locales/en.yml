@@ -21,6 +21,9 @@
 
 en:
   activerecord:
+    attributes:
+      contest:
+        name: "Name"
     errors:
       models:
         contest:

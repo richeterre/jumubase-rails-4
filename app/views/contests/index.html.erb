@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= Contest.human_attribute_name(:name) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contests.each do |contest| %>
+    <tr>
+      <td><%= link_to contest.name, contest_path(contest) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

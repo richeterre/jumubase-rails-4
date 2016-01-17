@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
+  resources :contests, only: [:index, :show]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
