@@ -57,4 +57,10 @@ RSpec.describe Contest, type: :model do
     before { contest.signup_deadline = contest.begins + 1.second }
     it { should_not be_valid }
   end
+
+  it "should have the correct name" do
+    host = build(:host, name: "DS Jumutown")
+    contest = build(:contest, season: 53, level: 2, host: host)
+    expect(contest.name).to eq("DS Jumutown, LW 2016")
+  end
 end

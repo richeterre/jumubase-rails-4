@@ -1,4 +1,6 @@
 class Contest < ActiveRecord::Base
+  include JumuHelper
+
   belongs_to :host
 
   validates :season, presence: true
@@ -10,6 +12,10 @@ class Contest < ActiveRecord::Base
 
   validate :require_beginning_before_end
   validate :require_signup_deadline_before_beginning
+
+  def name
+    "#{self.host.name}, #{short_name_for_level(self.level)} #{year_for_season(self.season)}"
+  end
 
   private
 
