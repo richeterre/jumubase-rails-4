@@ -15,4 +15,8 @@ FactoryGirl.define do
     country_code "FI"
     time_zone "Europe/Helsinki"
   end
+
+  factory :performance do
+    contest
+  end
 end
