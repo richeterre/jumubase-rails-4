@@ -29,7 +29,7 @@ RSpec.describe Contest, type: :model do
   end
 
   describe "without an associated host" do
-    before { contest.host_id = nil }
+    before { contest.host = nil }
     it { should_not be_valid }
   end
 

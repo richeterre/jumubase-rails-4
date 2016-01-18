@@ -5,7 +5,7 @@ class Contest < ActiveRecord::Base
 
   validates :season, presence: true
   validates :level, inclusion: { in: 1..3 }
-  validates :host_id, presence: true
+  validates :host, presence: true
   validates :begins, presence: true
   validates :ends, presence: true
   validates :signup_deadline, presence: true

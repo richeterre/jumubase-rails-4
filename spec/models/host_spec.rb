@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Host, type: :model do
 
-  let (:host) { FactoryGirl.build(:host) }
+  let (:host) { build(:host) }
 
   subject { host }
 
