@@ -14,11 +14,15 @@ class PerformancePolicy < ApplicationPolicy
       # Get the ids of all contests the user can access
       contest_ids = ContestPolicy::Scope.new(user, Contest).resolve.select("id")
 
-      # Get all performances who, OR whose predecessors, belong to those contests
-      # (The LEFT JOIN ensures that performances without predecessors get included, too.)
+      # Get all performances associated with those contests, either directly or by predecessor
       scope
-        .joins("LEFT JOIN Performances pred ON performances.predecessor_id = pred.id")
-        .where("performances.contest_id IN (?) OR pred.contest_id IN (?)", contest_ids, contest_ids)
+        .includes(:predecessor)
+        .where(
+          "performances.contest_id IN (?) OR predecessors_performances.contest_id IN (?)",
+          contest_ids,
+          contest_ids
+        )
+        .references(:predecessor)
     end
   end
 end
