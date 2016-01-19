@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  resources :contests, only: [:index, :show]
+  resources :contests, only: [:index, :show] do
+    resources :performances, only: [:index, :show], shallow: true # only nests collection actions
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

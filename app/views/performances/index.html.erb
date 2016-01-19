@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <th>Performances</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @performances.each do |performance| %>
+    <tr>
+      <td><%= link_to "Performance #{performance.id}", performance_path(performance) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
