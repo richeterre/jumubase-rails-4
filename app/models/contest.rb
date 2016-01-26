@@ -2,6 +2,7 @@ class Contest < ActiveRecord::Base
   include JumuHelper
 
   belongs_to :host
+  has_many :performances
 
   validates :season, presence: true
   validates :level, inclusion: { in: 1..3 }
