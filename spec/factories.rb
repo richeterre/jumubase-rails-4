@@ -19,4 +19,9 @@ FactoryGirl.define do
   factory :performance do
     contest
   end
+
+  factory :venue do
+    name "Aula"
+    host
+  end
 end
