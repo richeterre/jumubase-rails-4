@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127102534) do
+ActiveRecord::Schema.define(version: 20160128201959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,21 @@ ActiveRecord::Schema.define(version: 20160127102534) do
   add_index "performances", ["contest_id"], name: "index_performances_on_contest_id", using: :btree
   add_index "performances", ["predecessor_id"], name: "index_performances_on_predecessor_id", using: :btree
 
+  create_table "pieces", force: :cascade do |t|
+    t.integer  "performance_id"
+    t.string   "title",          null: false
+    t.string   "composer_name",  null: false
+    t.string   "composer_born"
+    t.string   "composer_died"
+    t.string   "epoch",          null: false
+    t.integer  "minutes",        null: false
+    t.integer  "seconds",        null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "pieces", ["performance_id"], name: "index_pieces_on_performance_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -86,5 +101,6 @@ ActiveRecord::Schema.define(version: 20160127102534) do
 
   add_foreign_key "contests", "hosts"
   add_foreign_key "performances", "contests"
+  add_foreign_key "pieces", "performances"
   add_foreign_key "venues", "hosts"
 end

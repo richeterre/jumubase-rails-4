@@ -20,6 +20,15 @@ FactoryGirl.define do
     contest
   end
 
+  factory :piece do
+    performance
+    title "4‘33“"
+    composer_name "John Cage"
+    epoch "f"
+    minutes 4
+    seconds 33
+  end
+
   factory :venue do
     name "Aula"
     host
