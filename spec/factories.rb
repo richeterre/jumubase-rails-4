@@ -16,6 +16,14 @@ FactoryGirl.define do
     time_zone "Europe/Helsinki"
   end
 
+  factory :participant do
+    first_name "Teemu"
+    last_name "Teilnehmer"
+    country_code "FI"
+    phone "12345"
+    email "teemu.teilnehmer@example.org"
+  end
+
   factory :performance do
     contest
   end
