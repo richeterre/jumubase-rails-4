@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128212125) do
+ActiveRecord::Schema.define(version: 20160128215250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,12 @@ ActiveRecord::Schema.define(version: 20160128212125) do
 
   add_index "hosts_users", ["host_id", "user_id"], name: "index_hosts_users_on_host_id_and_user_id", unique: true, using: :btree
   add_index "hosts_users", ["user_id"], name: "index_hosts_users_on_user_id", using: :btree
+
+  create_table "instruments", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "participants", force: :cascade do |t|
     t.string   "first_name",   null: false

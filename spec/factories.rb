@@ -16,6 +16,10 @@ FactoryGirl.define do
     time_zone "Europe/Helsinki"
   end
 
+  factory :instrument do
+    name "Klavier"
+  end
+
   factory :participant do
     first_name "Teemu"
     last_name "Teilnehmer"
