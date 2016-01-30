@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160128215250) do
   create_table "contests", force: :cascade do |t|
     t.integer  "season",           null: false
     t.integer  "level",            null: false
-    t.integer  "host_id"
+    t.integer  "host_id",          null: false
     t.date     "begins",           null: false
     t.date     "ends",             null: false
     t.date     "certificate_date"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20160128215250) do
   end
 
   create_table "performances", force: :cascade do |t|
-    t.integer  "contest_id"
+    t.integer  "contest_id",     null: false
     t.integer  "predecessor_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20160128215250) do
   add_index "performances", ["predecessor_id"], name: "index_performances_on_predecessor_id", using: :btree
 
   create_table "pieces", force: :cascade do |t|
-    t.integer  "performance_id"
+    t.integer  "performance_id", null: false
     t.string   "title",          null: false
     t.string   "composer_name",  null: false
     t.string   "composer_born"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 20160128215250) do
 
   create_table "venues", force: :cascade do |t|
     t.string   "name",       null: false
-    t.integer  "host_id"
+    t.integer  "host_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

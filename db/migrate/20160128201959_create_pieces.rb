@@ -1,7 +1,7 @@
 class CreatePieces < ActiveRecord::Migration
   def change
     create_table :pieces do |t|
-      t.references :performance, index: true, foreign_key: true
+      t.references :performance, index: true, foreign_key: true, null: false
       t.string :title, null: false
       t.string :composer_name, null: false
       t.string :composer_born

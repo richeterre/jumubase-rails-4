@@ -3,7 +3,7 @@ class CreateContests < ActiveRecord::Migration
     create_table :contests do |t|
       t.integer :season, null: false
       t.integer :level, null: false
-      t.references :host, index: true, foreign_key: true
+      t.references :host, index: true, foreign_key: true, null: false
       t.date :begins, null: false
       t.date :ends, null: false
       t.date :certificate_date
