@@ -1,5 +1,6 @@
 # Jumu-related parameters are defined here.
-# Be sure to restart the server after changing any of these!
+# Be sure to restart the server after changing any of these.
+# Before changing anything, make sure you know what you're doing!
 
 # The running number of the current competition season
 JUMU_SEASON = Integer(ENV['JUMU_CURRENT_SEASON'])
@@ -13,3 +14,10 @@ JUMU_LEVEL_SHORT_NAMES = {
   2 => "LW",
   3 => "BW"
 }
+
+# Possible participant role values for the database
+JUMU_PARTICIPANT_ROLES = [
+  'soloist',
+  'ensemblist',
+  'accompanist'
+]

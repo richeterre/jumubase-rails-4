@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :appearance do
+    performance
+    participant
+    instrument
+    participant_role JUMU_PARTICIPANT_ROLES.first
+  end
+
   factory :contest do
     season 1
     level 1
