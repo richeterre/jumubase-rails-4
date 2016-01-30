@@ -18,6 +18,11 @@ RSpec.describe Participant, type: :model do
     it { should_not be_valid }
   end
 
+  describe "without a birthdate" do
+    before { participant.birthdate = nil }
+    it { should_not be_valid }
+  end
+
   describe "without a country code" do
     before { participant.country_code = nil }
     it { should_not be_valid }

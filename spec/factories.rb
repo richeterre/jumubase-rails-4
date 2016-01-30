@@ -23,6 +23,7 @@ FactoryGirl.define do
   factory :participant do
     first_name "Teemu"
     last_name "Teilnehmer"
+    birthdate "2000-01-01"
     country_code "FI"
     phone "12345"
     email "teemu.teilnehmer@example.org"
