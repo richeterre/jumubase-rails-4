@@ -31,3 +31,7 @@ en:
             base:
               beginning_not_before_end: "The contest must begin before it ends"
               signup_deadline_not_before_beginning: "The contest's signup deadline must be before it begins"
+        performance:
+          attributes:
+            base:
+              must_have_some_participant: "There must be at least one participant"

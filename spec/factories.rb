@@ -51,6 +51,11 @@ FactoryGirl.define do
 
   factory :performance do
     contest_category
+
+    after(:build) do |p|
+      p.appearances << FactoryGirl.build(:appearance, performance: p) if p.appearances.empty?
+      p.pieces << [FactoryGirl.build(:piece, performance: p)] if p.pieces.empty?
+    end
   end
 
   factory :piece do

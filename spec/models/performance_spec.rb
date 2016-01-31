@@ -6,18 +6,13 @@ RSpec.describe Performance, type: :model do
 
   subject { performance }
 
+  # Associations
+
   it { should respond_to(:contest_category) }
   it { should respond_to(:predecessor) }
   it { should respond_to(:appearances) }
   it { should respond_to(:participants) }
   it { should respond_to(:pieces) }
-
-  it { should be_valid }
-
-  describe "without an associated contest category" do
-    before { performance.contest_category = nil }
-    it { should_not be_valid }
-  end
 
   it "finds its predecessor, if present" do
     predecessor = create(:performance)
@@ -51,5 +46,58 @@ RSpec.describe Performance, type: :model do
     expect {
       performance.destroy
     }.to change(Piece, :count).by(-2)
+  end
+
+  # Validations
+
+  it { should be_valid }
+
+  describe "without an associated contest category" do
+    before { performance.contest_category = nil }
+    it { should_not be_valid }
+  end
+
+  describe "without at least one associated appearance" do
+    before { performance.appearances = [] }
+    it { should_not be_valid }
+  end
+
+  describe "with multiple soloist appearances" do
+    before do
+      performance.appearances = [
+        build(:appearance, participant_role: 'soloist'),
+        build(:appearance, participant_role: 'soloist')
+      ]
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with only accompanist appearances" do
+    before do
+      performance.appearances = [
+        build(:appearance, participant_role: 'accompanist'),
+        build(:appearance, participant_role: 'accompanist')
+      ]
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with a single ensemblist appearance" do
+    before do
+      performance.appearances = [
+        build(:appearance, participant_role: 'ensemblist')
+      ]
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with both soloist and ensemblist appearances" do
+    before do
+      performance.appearances = [
+        build(:appearance, participant_role: 'soloist'),
+        build(:appearance, participant_role: 'ensemblist')
+      ]
+    end
+    it { should_not be_valid }
   end
 end
