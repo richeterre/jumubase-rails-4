@@ -1,6 +1,6 @@
 RSpec.describe ContestCategoryPolicy do
 
-  describe ".scope" do
+  describe "scope" do
     subject (:policy_scope) { ContestCategoryPolicy::Scope.new(user, scope).resolve }
 
     let (:host) { create(:host) }

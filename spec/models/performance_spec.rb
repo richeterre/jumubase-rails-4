@@ -25,14 +25,14 @@ RSpec.describe Performance, type: :model do
     expect(performance.predecessor).to eq(predecessor)
   end
 
-  it "should find all its participants" do
+  it "finds all its participants" do
     a1 = build(:appearance)
     a2 = build(:appearance)
     performance = create(:performance, appearances: [a1, a2])
     expect(performance.participants).to eq([a1.participant, a2.participant])
   end
 
-  it "should destroy any dependent appearances" do
+  it "destroys any dependent appearances" do
     a1 = build(:appearance)
     a2 = build(:appearance)
     performance = create(:performance, appearances: [a1, a2])
@@ -41,7 +41,7 @@ RSpec.describe Performance, type: :model do
     }.to change(Appearance, :count).by(-2)
   end
 
-  it "should destroy any dependent pieces" do
+  it "destroys any dependent pieces" do
     p1 = build(:piece)
     p2 = build(:piece)
     performance = create(:performance, pieces: [p1, p2])

@@ -1,20 +1,33 @@
 RSpec.describe ContestPolicy do
 
-  permissions :show? do
+  describe "action" do
+
     subject { ContestPolicy }
 
     let (:host) { Host.new }
 
-    it "denies access if host is not among the user's hosts" do
-      expect(subject).not_to permit(User.new(hosts: []), Contest.new(host: host))
+    permissions :show? do
+      it "denies access if host is not among the user's hosts" do
+        expect(subject).not_to permit(User.new(hosts: []), Contest.new(host: host))
+      end
+
+      it "grants access if host is among the user's hosts" do
+        expect(subject).to permit(User.new(hosts: [host]), Contest.new(host: host))
+      end
     end
 
-    it "grants access if host is among the user's hosts" do
-      expect(subject).to permit(User.new(hosts: [host]), Contest.new(host: host))
+    permissions :index_performances? do
+      it "denies access if host is not among the user's hosts" do
+        expect(subject).not_to permit(User.new(hosts: []), Contest.new(host: host))
+      end
+
+      it "grants access if host is among the user's hosts" do
+        expect(subject).to permit(User.new(hosts: [host]), Contest.new(host: host))
+      end
     end
   end
 
-  permissions :index do
+  describe "scope" do
     subject (:policy_scope) { ContestPolicy::Scope.new(user, scope).resolve }
 
     let (:host) { create(:host) }

@@ -1,24 +1,26 @@
 RSpec.describe PerformancePolicy do
 
-  permissions :show? do
-    subject { PerformancePolicy }
+  describe "action" do
+    permissions :show? do
+      subject { PerformancePolicy }
 
-    let (:host) { Host.new }
-    let (:performance) do
-      contest_category = ContestCategory.new(contest: Contest.new(host: host))
-      Performance.new(contest_category: contest_category)
-    end
+      let (:host) { Host.new }
+      let (:performance) do
+        contest_category = ContestCategory.new(contest: Contest.new(host: host))
+        Performance.new(contest_category: contest_category)
+      end
 
-    it "denies access if contest host is not among the user's hosts" do
-      expect(subject).not_to permit(User.new(hosts: []), performance)
-    end
+      it "denies access if contest host is not among the user's hosts" do
+        expect(subject).not_to permit(User.new(hosts: []), performance)
+      end
 
-    it "grants access if contest host is among the user's hosts" do
-      expect(subject).to permit(User.new(hosts: [host]), performance)
+      it "grants access if contest host is among the user's hosts" do
+        expect(subject).to permit(User.new(hosts: [host]), performance)
+      end
     end
   end
 
-  permissions :index do
+  describe "scope" do
     subject (:policy_scope) { PerformancePolicy::Scope.new(user, scope).resolve }
 
     let (:host) { create(:host) }
