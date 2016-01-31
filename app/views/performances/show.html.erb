@@ -1,1 +1,13 @@
 <h1><%= "Performance #{@performance.id}" %></h1>
+
+<h2>Musicians</h2>
+
+<% @performance.appearances.each do |appearance| %>
+  <p><%= appearance.participant.full_name %></p>
+<% end %>
+
+<h2>Pieces</h2
+
+<% @performance.pieces.each do |piece| %>
+  <p><%= "#{piece.composer_name}: #{piece.title}" %></p>
+<% end %>
