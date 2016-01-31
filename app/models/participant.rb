@@ -7,4 +7,8 @@ class Participant < ActiveRecord::Base
   validates :country_code, presence: true
   validates :phone, presence: true
   validates :email, presence: true, format: { with: email_regex }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

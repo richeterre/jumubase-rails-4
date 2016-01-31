@@ -46,4 +46,9 @@ RSpec.describe Participant, type: :model do
       end
     end
   end
+
+  it "returns a full name" do
+    participant = create(:participant, first_name: "John", last_name: "Doe")
+    expect(participant.full_name).to eq("John Doe")
+  end
 end
