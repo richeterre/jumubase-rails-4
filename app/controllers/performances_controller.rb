@@ -2,7 +2,7 @@ class PerformancesController < ApplicationController
   def index
     contest = Contest.find(params[:contest_id])
     # TODO: authorize(contest)
-    @performances = policy_scope(Performance).where(contest: contest)
+    @performances = policy_scope(contest.performances)
   end
 
   def show

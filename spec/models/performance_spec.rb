@@ -6,13 +6,13 @@ RSpec.describe Performance, type: :model do
 
   subject { performance }
 
-  it { should respond_to(:contest) }
+  it { should respond_to(:contest_category) }
   it { should respond_to(:predecessor) }
 
   it { should be_valid }
 
-  describe "without an associated competition" do
-    before { performance.contest = nil }
+  describe "without an associated contest category" do
+    before { performance.contest_category = nil }
     it { should_not be_valid }
   end
 

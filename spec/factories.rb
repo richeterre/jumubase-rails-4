@@ -6,6 +6,14 @@ FactoryGirl.define do
     participant_role JUMU_PARTICIPANT_ROLES.first
   end
 
+  factory :category do
+    name "Klavier solo"
+    slug "Klavier"
+    genre "classical"
+    solo true
+    ensemble false
+  end
+
   factory :contest do
     season 1
     level 1
@@ -14,6 +22,11 @@ FactoryGirl.define do
     ends "2016-01-16"
     certificate_date "2016-01-16"
     signup_deadline "2015-12-16 00:00:00"
+  end
+
+  factory :contest_category do
+    contest
+    category
   end
 
   factory :host do
@@ -37,7 +50,7 @@ FactoryGirl.define do
   end
 
   factory :performance do
-    contest
+    contest_category
   end
 
   factory :piece do

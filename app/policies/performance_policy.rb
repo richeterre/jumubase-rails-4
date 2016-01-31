@@ -11,16 +11,16 @@ class PerformancePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      # Get the ids of all contests the user can access
-      contest_ids = ContestPolicy::Scope.new(user, Contest).resolve.select("id")
+      # Get the ids of all contest categories the user can access
+      contest_category_ids = ContestCategoryPolicy::Scope.new(user, ContestCategory).resolve.select("id")
 
-      # Get all performances associated with those contests, either directly or by predecessor
+      # Get all performances associated with those contest categories, either directly or by predecessor
       scope
         .includes(:predecessor)
         .where(
-          "performances.contest_id IN (?) OR predecessors_performances.contest_id IN (?)",
-          contest_ids,
-          contest_ids
+          "performances.contest_category_id IN (?) OR predecessors_performances.contest_category_id IN (?)",
+          contest_category_ids,
+          contest_category_ids
         )
         .references(:predecessor)
     end

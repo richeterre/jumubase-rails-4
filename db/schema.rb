@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128221415) do
+ActiveRecord::Schema.define(version: 20160130214948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,26 @@ ActiveRecord::Schema.define(version: 20160128221415) do
   add_index "appearances", ["instrument_id"], name: "index_appearances_on_instrument_id", using: :btree
   add_index "appearances", ["participant_id"], name: "index_appearances_on_participant_id", using: :btree
   add_index "appearances", ["performance_id"], name: "index_appearances_on_performance_id", using: :btree
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "slug",       null: false
+    t.string   "genre",      null: false
+    t.boolean  "solo",       null: false
+    t.boolean  "ensemble",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contest_categories", force: :cascade do |t|
+    t.integer  "contest_id",  null: false
+    t.integer  "category_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "contest_categories", ["category_id"], name: "index_contest_categories_on_category_id", using: :btree
+  add_index "contest_categories", ["contest_id"], name: "index_contest_categories_on_contest_id", using: :btree
 
   create_table "contests", force: :cascade do |t|
     t.integer  "season",           null: false
@@ -82,13 +102,13 @@ ActiveRecord::Schema.define(version: 20160128221415) do
   end
 
   create_table "performances", force: :cascade do |t|
-    t.integer  "contest_id",     null: false
     t.integer  "predecessor_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "contest_category_id", null: false
   end
 
-  add_index "performances", ["contest_id"], name: "index_performances_on_contest_id", using: :btree
+  add_index "performances", ["contest_category_id"], name: "index_performances_on_contest_category_id", using: :btree
   add_index "performances", ["predecessor_id"], name: "index_performances_on_predecessor_id", using: :btree
 
   create_table "pieces", force: :cascade do |t|
@@ -136,8 +156,10 @@ ActiveRecord::Schema.define(version: 20160128221415) do
   add_foreign_key "appearances", "instruments"
   add_foreign_key "appearances", "participants"
   add_foreign_key "appearances", "performances"
+  add_foreign_key "contest_categories", "categories"
+  add_foreign_key "contest_categories", "contests"
   add_foreign_key "contests", "hosts"
-  add_foreign_key "performances", "contests"
+  add_foreign_key "performances", "contest_categories"
   add_foreign_key "pieces", "performances"
   add_foreign_key "venues", "hosts"
 end
