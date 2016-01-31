@@ -31,15 +31,15 @@ RSpec.describe PerformancePolicy do
       # Contest and performance "owned" by the user
       own_contest = create(:contest, host: host)
       own_contest_cat = create(:contest_category, contest: own_contest)
-      own_perf = Performance.create(contest_category: own_contest_cat)
+      own_perf = create(:performance, contest_category: own_contest_cat)
 
       # "Foreign" contest and performance
       foreign_contest = create(:contest)
       foreign_contest_cat = create(:contest_category, contest: foreign_contest)
-      foreign_perf = Performance.create(contest_category: foreign_contest_cat)
+      foreign_perf = create(:performance, contest_category: foreign_contest_cat)
 
       # Performance in foreign contest, but with predecessor owned by user
-      own_pred_perf = Performance.create(
+      own_pred_perf = create(:performance,
         contest_category: foreign_contest_cat,
         predecessor: own_perf
       )
