@@ -25,20 +25,23 @@ RSpec.describe Performance, type: :model do
     expect(performance.predecessor).to eq(predecessor)
   end
 
-  it "finds all its participants" do
-    a1 = build(:appearance)
-    a2 = build(:appearance)
-    performance = create(:performance, appearances: [a1, a2])
-    expect(performance.participants).to eq([a1.participant, a2.participant])
-  end
+  describe "with multiple appearances" do
+    before do
+      @a1 = build(:appearance, participant_role: 'soloist')
+      @a2 = build(:appearance, participant_role: 'accompanist')
+    end
 
-  it "destroys any dependent appearances" do
-    a1 = build(:appearance)
-    a2 = build(:appearance)
-    performance = create(:performance, appearances: [a1, a2])
-    expect {
-      performance.destroy
-    }.to change(Appearance, :count).by(-2)
+    it "finds all its participants" do
+      performance = create(:performance, appearances: [@a1, @a2])
+      expect(performance.participants).to eq([@a1.participant, @a2.participant])
+    end
+
+    it "destroys any dependent appearances" do
+      performance = create(:performance, appearances: [@a1, @a2])
+      expect {
+        performance.destroy
+      }.to change(Appearance, :count).by(-2)
+    end
   end
 
   it "destroys any dependent pieces" do
