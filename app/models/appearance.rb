@@ -9,4 +9,16 @@ class Appearance < ActiveRecord::Base
   validates :participant_role,
     presence: true,
     inclusion: { in: JUMU_PARTICIPANT_ROLES }
+
+  def solo?
+    participant_role == 'soloist'
+  end
+
+  def ensemble?
+    participant_role == 'ensemblist'
+  end
+
+  def accompaniment?
+    participant_role == 'accompanist'
+  end
 end

@@ -45,4 +45,52 @@ RSpec.describe Appearance, type: :model do
       end
     end
   end
+
+  describe "with a soloist" do
+    before { appearance.participant_role = 'soloist' }
+
+    it "tells it's a solo appearance" do
+      expect(appearance.solo?).to be_truthy
+    end
+
+    it "tells it's no ensemble appearance" do
+      expect(appearance.ensemble?).to be_falsy
+    end
+
+    it "tells it's no accompaniment appearance" do
+      expect(appearance.accompaniment?).to be_falsy
+    end
+  end
+
+  describe "with an ensemblist" do
+    before { appearance.participant_role = 'ensemblist' }
+
+    it "tells it's no solo appearance" do
+      expect(appearance.solo?).to be_falsy
+    end
+
+    it "tells it's an ensemble appearance" do
+      expect(appearance.ensemble?).to be_truthy
+    end
+
+    it "tells it's no accompaniment appearance" do
+      expect(appearance.accompaniment?).to be_falsy
+    end
+  end
+
+  describe "with an accompanist" do
+    before { appearance.participant_role = 'accompanist' }
+
+    it "tells it's no solo appearance" do
+      expect(appearance.solo?).to be_falsy
+    end
+
+    it "tells it's no ensemble appearance" do
+      expect(appearance.ensemble?).to be_falsy
+    end
+
+    it "tells it's an accompaniment appearance" do
+      expect(appearance.accompaniment?).to be_truthy
+    end
+  end
 end
