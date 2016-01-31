@@ -32,4 +32,22 @@ RSpec.describe Category, type: :model do
     before { category.ensemble = nil }
     it { should_not be_valid }
   end
+
+  describe "with an invalid genre" do
+    it "should not be valid" do
+      ["", "pop", "klassik"].each do |invalid_genre|
+        category.genre = invalid_genre
+        expect(category).not_to be_valid
+      end
+    end
+  end
+
+  describe "with a valid genre" do
+    it "should be valid" do
+      JUMU_GENRES.each do |valid_genre|
+        category.genre = valid_genre
+        expect(category).to be_valid
+      end
+    end
+  end
 end

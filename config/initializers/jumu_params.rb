@@ -21,3 +21,10 @@ JUMU_PARTICIPANT_ROLES = [
   'ensemblist',
   'accompanist'
 ]
+
+# Possible category genre values for the database
+JUMU_GENRES = [
+  'classical',
+  'popular',
+  'kimu'
+]
