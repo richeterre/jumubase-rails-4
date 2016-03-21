@@ -11,7 +11,6 @@ RSpec.describe Performance, type: :model do
   it { should respond_to(:contest_category) }
   it { should respond_to(:predecessor) }
   it { should respond_to(:appearances) }
-  it { should respond_to(:participants) }
   it { should respond_to(:pieces) }
 
   it "finds its predecessor, if present" do
@@ -24,11 +23,6 @@ RSpec.describe Performance, type: :model do
     before do
       @a1 = build(:appearance, participant_role: 'soloist')
       @a2 = build(:appearance, participant_role: 'accompanist')
-    end
-
-    it "finds all its participants" do
-      performance = create(:performance, appearances: [@a1, @a2])
-      expect(performance.participants).to eq([@a1.participant, @a2.participant])
     end
 
     it "destroys any dependent appearances" do
