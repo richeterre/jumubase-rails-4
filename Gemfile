@@ -28,6 +28,9 @@ gem 'devise'
 # Use Pundit for authorization
 gem 'pundit'
 
+# Use ZURB Foundation for layout
+gem 'foundation-rails'
+
 group :development, :test do
   # Use RSpec for tests
   gem 'rspec-rails', '~> 3.0'
