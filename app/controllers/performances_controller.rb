@@ -3,6 +3,7 @@ class PerformancesController < ApplicationController
     @contest = Contest.find(params[:contest_id])
     authorize(@contest, :index_performances?)
     @performances = policy_scope(@contest.performances)
+      .includes({ contest_category: :category })
   end
 
   def show

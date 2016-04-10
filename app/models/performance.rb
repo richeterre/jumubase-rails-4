@@ -5,6 +5,7 @@ class Performance < ActiveRecord::Base
   has_many :pieces, dependent: :destroy
 
   delegate :contest, to: :contest_category
+  delegate :category, to: :contest_category
 
   validates :contest_category, presence: true
   validate :check_role_combinations
