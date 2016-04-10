@@ -1,12 +1,12 @@
-<h1><%= "Performance #{@performance.id}" %></h1>
+<% provide(:title, "Performance #{@performance.id}") %>
 
-<h2>Musicians</h2>
+<h3>Musicians</h3>
 
 <% @performance.appearances.each do |appearance| %>
   <p><%= appearance.participant.full_name %></p>
 <% end %>
 
-<h2>Pieces</h2
+<h3>Pieces</h3>
 
 <% @performance.pieces.each do |piece| %>
   <p><%= "#{piece.composer_name}: #{piece.title}" %></p>
