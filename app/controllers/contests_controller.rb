@@ -1,6 +1,7 @@
 class ContestsController < ApplicationController
   def index
     @contests = policy_scope(Contest)
+      .includes(:host)
   end
 
   def show
