@@ -3,6 +3,10 @@ class ContestPolicy < ApplicationPolicy
     user.host_ids.include? record.host_id
   end
 
+  def create?
+    true # TODO: Limit this to admins
+  end
+
   def index_performances?
     user.host_ids.include? record.host_id
   end

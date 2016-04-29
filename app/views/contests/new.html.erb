@@ -1,0 +1,15 @@
+<% provide(:title, "New contest") %>
+
+<%= simple_form_for @contest do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.input :season, input_html: { value: JUMU_SEASON } %>
+  <%= f.input :level, collection: @levels, label_method: lambda { |level| JUMU_LEVEL_SHORT_NAMES[level] } %>
+  <%= f.association :host %>
+  <%= f.input :begins %>
+  <%= f.input :ends %>
+  <%= f.input :signup_deadline %>
+  <%= f.input :certificate_date %>
+
+  <%= f.button :submit, class: "button" %>
+<% end %>
