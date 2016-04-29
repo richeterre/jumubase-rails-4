@@ -28,6 +28,9 @@ gem 'devise'
 # Use Pundit for authorization
 gem 'pundit'
 
+# Use SimpleForm for forms
+gem 'simple_form'
+
 # Use ZURB Foundation for layout
 gem 'foundation-rails'
 
