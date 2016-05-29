@@ -37,37 +37,37 @@ There are three possible "genres" or "sub-competitions", the availability of whi
 
 ### Models
 
-__User__
+__User__<br />
 A user of the software, [identified](#authentication) by their email and password.
 
-__Host__
+__Host__<br />
 An institution, typically a school, that can host contests.
 
-__Venue__
+__Venue__<br />
 A physical location, associated with a host, where performances are held.
 
-__Contest__
+__Contest__<br />
 A single or multi-day event that forms the basic entity of Jugend musiziert. It has a _season_ (= competition year), and a _level_ that corresponds to the competition round (RW, LW or BW).
 
-__Category__
+__Category__<br />
 A set of constraints for participating in a contest. There are solo and ensemble categories, e.g. "Violine solo" and "Vokal-Ensemble". Categories also mandate what pieces can be performed, as well as a min/max duration depending on the performance's age group.
 
-__Contest category__
+__Contest category__<br />
 A category when offered within a particular contest. Some contests offer a category only for certain age groups, or not at all.
 
-__Performance__
+__Performance__<br />
 A musical entry taking place within a contest category, at a given time and venue. It is associated with an age group calculated from the participants' birth dates.
 
-__Appearance__
+__Appearance__<br />
 A single participant's contribution to a performance. Each appearance is awarded points by the jury, and a certificate afterwards.
 
-__Participant__
+__Participant__<br />
 A person appearing in one or more performances within a contest.
 
-__Instrument__
+__Instrument__<br />
 A musical instrument used in an appearance.
 
-__Piece__
+__Piece__<br />
 A piece of music presented during a performance. It is associated with a composer or other artist, as well as a musical epoch.
 
 ### Authentication
