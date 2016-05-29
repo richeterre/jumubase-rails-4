@@ -4,7 +4,10 @@ class Piece < ActiveRecord::Base
   validates :performance, presence: true
   validates :title, presence: true
   validates :composer_name, presence: true
-  validates :epoch, presence: true
+  validates :epoch,
+    presence: true,
+    inclusion: { in: JUMU_EPOCHS }
+
   validates :minutes,
     presence: true,
     numericality: {

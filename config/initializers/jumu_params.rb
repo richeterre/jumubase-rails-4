@@ -16,15 +16,10 @@ JUMU_LEVEL_SHORT_NAMES = {
 }
 
 # Possible participant role values for the database
-JUMU_PARTICIPANT_ROLES = [
-  'soloist',
-  'ensemblist',
-  'accompanist'
-]
+JUMU_PARTICIPANT_ROLES = %w(soloist ensemblist accompanist)
 
 # Possible category genre values for the database
-JUMU_GENRES = [
-  'classical',
-  'popular',
-  'kimu'
-]
+JUMU_GENRES = %w(classical popular kimu)
+
+# Possible piece epoch values for the database
+JUMU_EPOCHS = %w(a b c d e f)

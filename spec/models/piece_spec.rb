@@ -28,6 +28,15 @@ RSpec.describe Piece, type: :model do
     it { should_not be_valid }
   end
 
+  describe "with an invalid epoch" do
+    it "should not be valid" do
+      [1, 'g', ' ', '-'].each do |invalid_value|
+        piece.epoch = invalid_value
+        expect(piece).not_to be_valid
+      end
+    end
+  end
+
   describe "without a minutes value" do
     before { piece.minutes = nil }
     it { should_not be_valid }

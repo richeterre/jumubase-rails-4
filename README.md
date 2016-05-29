@@ -17,23 +17,25 @@ The application consists of two parts:
 
 The following information is unlikely to change often and therefore hard-coded into the software, residing in the `jumu_params.rb` file.
 
-Each annual season of "Jugend musiziert" consists of three rounds:
+Each annual season of "Jugend musiziert" consists of three __rounds__ in ascending level:
 
 1. Regionalwettbewerb (RW)
 2. Landeswettbewerb (LW)
 3. Bundeswettbewerb (BW)
 
-Participants can appear in a given performance in any of the following roles:
+When appearing in a performance, a __participant's role__ is any of the following:
 
 1. Soloist
 2. Ensemblist
 3. Accompanist
 
-There are three possible "genres" or "sub-competitions", the availability of which depends on the contest:
+There are three possible __"genres" for categories__, the availability of which depends on the contest:
 
 1. Classical (Klassik)
 2. Popular (Pop)
 3. Kinder musizieren (KiMu)
+
+To denote the __musical epoch of a piece__, the letters _a_ through _f_ are used.
 
 ### Models
 
