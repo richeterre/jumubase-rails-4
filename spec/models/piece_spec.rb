@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: pieces
+#
+#  id             :integer          not null, primary key
+#  performance_id :integer          not null
+#  title          :string           not null
+#  composer_name  :string           not null
+#  composer_born  :string
+#  composer_died  :string
+#  epoch          :string           not null
+#  minutes        :integer          not null
+#  seconds        :integer          not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: appearances
+#
+#  id               :integer          not null, primary key
+#  performance_id   :integer          not null
+#  participant_id   :integer          not null
+#  instrument_id    :integer          not null
+#  participant_role :string           not null
+#  points           :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
 class Appearance < ActiveRecord::Base
   belongs_to :performance
   belongs_to :participant

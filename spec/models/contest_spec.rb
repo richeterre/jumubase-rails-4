@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: contests
+#
+#  id               :integer          not null, primary key
+#  season           :integer          not null
+#  level            :integer          not null
+#  host_id          :integer          not null
+#  begins           :date             not null
+#  ends             :date             not null
+#  certificate_date :date
+#  signup_deadline  :datetime         not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Contest, type: :model do

@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: performances
+#
+#  id                  :integer          not null, primary key
+#  predecessor_id      :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  contest_category_id :integer          not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Performance, type: :model do

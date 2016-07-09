@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: performances
+#
+#  id                  :integer          not null, primary key
+#  predecessor_id      :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  contest_category_id :integer          not null
+#
+
 class Performance < ActiveRecord::Base
   belongs_to :contest_category
   belongs_to :predecessor, class_name: 'Performance'

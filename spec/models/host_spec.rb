@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: hosts
+#
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  city         :string           not null
+#  country_code :string           not null
+#  time_zone    :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Host, type: :model do
