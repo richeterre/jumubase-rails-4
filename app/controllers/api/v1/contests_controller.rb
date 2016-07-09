@@ -1,5 +1,5 @@
-module Api::V1
-  class ContestsController < ApiController
+module API::V1
+  class ContestsController < APIController
     def index
       @contests = Contest.all
     end
