@@ -26,6 +26,7 @@ RSpec.describe Performance, type: :model do
   it { should respond_to(:pieces) }
   it { should respond_to(:contest) }
   it { should respond_to(:category) }
+  it { should respond_to(:stage_time) }
 
   it "finds its predecessor, if present" do
     predecessor = create(:performance)
