@@ -8,16 +8,19 @@
 #  updated_at          :datetime         not null
 #  contest_category_id :integer          not null
 #  stage_time          :datetime
+#  stage_venue_id      :integer
 #
 # Indexes
 #
 #  index_performances_on_contest_category_id  (contest_category_id)
 #  index_performances_on_predecessor_id       (predecessor_id)
+#  index_performances_on_stage_venue_id       (stage_venue_id)
 #
 
 class Performance < ActiveRecord::Base
   belongs_to :contest_category
   belongs_to :predecessor, class_name: 'Performance'
+  belongs_to :stage_venue, class_name: 'Venue'
   has_many :appearances, dependent: :destroy
   has_many :pieces, dependent: :destroy
 

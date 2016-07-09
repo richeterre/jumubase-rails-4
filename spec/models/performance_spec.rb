@@ -22,6 +22,7 @@ RSpec.describe Performance, type: :model do
 
   it { should respond_to(:contest_category) }
   it { should respond_to(:predecessor) }
+  it { should respond_to(:stage_venue) }
   it { should respond_to(:appearances) }
   it { should respond_to(:pieces) }
   it { should respond_to(:contest) }
@@ -32,6 +33,12 @@ RSpec.describe Performance, type: :model do
     predecessor = create(:performance)
     performance = create(:performance, predecessor_id: predecessor.id)
     expect(performance.predecessor).to eq(predecessor)
+  end
+
+  it "finds its stage venue, if present" do
+    stage_venue = create(:venue)
+    performance = create(:performance, stage_venue_id: stage_venue.id)
+    expect(performance.stage_venue).to eq(stage_venue)
   end
 
   describe "with multiple appearances" do
