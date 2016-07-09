@@ -41,12 +41,12 @@ FactoryGirl.define do
   end
 
   factory :participant do
-    first_name "Teemu"
+    first_name "Tom"
     last_name "Teilnehmer"
     birthdate "2000-01-01"
     country_code "FI"
     phone "12345"
-    email "teemu.teilnehmer@example.org"
+    email "tom.teilnehmer@example.org"
   end
 
   factory :performance do
@@ -65,6 +65,12 @@ FactoryGirl.define do
     epoch "f"
     minutes 4
     seconds 33
+  end
+
+  factory :user do
+    email "tom@example.org"
+    password "password"
+    role "regular"
   end
 
   factory :venue do

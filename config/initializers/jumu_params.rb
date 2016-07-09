@@ -15,6 +15,9 @@ JUMU_LEVEL_SHORT_NAMES = {
   3 => "BW"
 }
 
+# Possible user role values for the database
+JUMU_USER_ROLES = %w(regular inspector admin)
+
 # Possible participant role values for the database
 JUMU_PARTICIPANT_ROLES = %w(soloist ensemblist accompanist)
 
