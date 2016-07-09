@@ -7,6 +7,12 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  contest_category_id :integer          not null
+#  stage_time          :datetime
+#
+# Indexes
+#
+#  index_performances_on_contest_category_id  (contest_category_id)
+#  index_performances_on_predecessor_id       (predecessor_id)
 #
 
 class Performance < ActiveRecord::Base

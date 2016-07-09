@@ -7,6 +7,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  contest_category_id :integer          not null
+#  stage_time          :datetime
 #
 
 require 'rails_helper'
