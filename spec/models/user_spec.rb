@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
   end
 
   it "tells whether it has a given role" do
-    user = build(:user, role: "admin")
+    user = build(:user, role: 'admin')
     expect(user.has_role?(:admin)).to be_truthy
     expect(user.has_role?(:regular)).to be_falsey
   end

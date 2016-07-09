@@ -4,7 +4,7 @@ class ContestPolicy < ApplicationPolicy
   end
 
   def create?
-    true # TODO: Limit this to admins
+    user.has_role?(:admin)
   end
 
   def index_performances?
