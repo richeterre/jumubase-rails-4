@@ -1,6 +1,8 @@
 <% provide(:title, "Contests") %>
 
-<%= link_to "New contest", new_contest_path, class: "button" %>
+<% if policy(Contest).create? %>
+  <%= link_to "New contest", new_contest_path, class: "button" %>
+<% end %>
 
 <table>
   <thead>
