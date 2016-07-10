@@ -76,5 +76,13 @@ RSpec.describe ContestPolicy do
         expect(policy_scope).to eq [contest1, contest2, contest3]
       end
     end
+
+    context "for admins" do
+      let (:user) { build(:admin) }
+
+      it "shows all contests" do
+        expect(policy_scope).to eq [contest1, contest2, contest3]
+      end
+    end
   end
 end

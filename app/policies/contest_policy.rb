@@ -13,7 +13,7 @@ class ContestPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.inspector?
+      if user.admin? || user.inspector?
         scope
       else
         scope.where(host_id: user.host_ids)
