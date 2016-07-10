@@ -51,16 +51,15 @@ RSpec.describe User, type: :model do
     end
   end
 
-  it "tells whether it has a given role" do
-    user = build(:user, role: 'admin')
-    expect(user.has_role?(:admin)).to be_truthy
-    expect(user.has_role?(:regular)).to be_falsey
+  it "tells whether it has an admin role" do
+    expect(build(:user).admin?).to be_falsey
+    expect(build(:inspector).admin?).to be_falsey
+    expect(build(:admin).admin?).to be_truthy
   end
 
-  it "tells whether it has an admin role" do
-    regular_user = build(:user, role: 'regular')
-    admin_user = build(:user, role: 'admin')
-    expect(regular_user.admin?).to be_falsey
-    expect(admin_user.admin?).to be_truthy
+  it "tells whether it has an inspector role" do
+    expect(build(:user).inspector?).to be_falsey
+    expect(build(:inspector).inspector?).to be_truthy
+    expect(build(:admin).inspector?).to be_falsey
   end
 end

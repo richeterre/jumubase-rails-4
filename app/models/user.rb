@@ -34,11 +34,11 @@ class User < ActiveRecord::Base
     presence: true,
     inclusion: { in: JUMU_USER_ROLES }
 
-  def has_role?(role)
-    self.role == role.to_s
+  def admin?
+    self.role == 'admin'
   end
 
-  def admin?
-    self.has_role?(:admin)
+  def inspector?
+    self.role == 'inspector'
   end
 end
