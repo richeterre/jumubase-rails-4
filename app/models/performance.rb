@@ -9,6 +9,7 @@
 #  contest_category_id :integer          not null
 #  stage_time          :datetime
 #  stage_venue_id      :integer
+#  edit_code           :string           not null
 #
 # Indexes
 #
@@ -28,7 +29,10 @@ class Performance < ActiveRecord::Base
   delegate :category, to: :contest_category
 
   validates :contest_category, presence: true
+  validates :edit_code, uniqueness: true
   validate :check_role_combinations
+
+  before_validation :set_unique_edit_code, on: :create
 
   private
 
@@ -61,5 +65,13 @@ class Performance < ActiveRecord::Base
       if has_soloists && has_ensemblists
         errors.add(:base, :cannot_have_soloists_and_ensemblists)
       end
+    end
+
+    def set_unique_edit_code
+      begin
+        code = rand(10000..99999).to_s
+      end while Performance.where(edit_code: code).exists?
+
+      self.edit_code = code
     end
 end

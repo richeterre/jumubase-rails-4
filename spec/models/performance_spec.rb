@@ -28,6 +28,7 @@ RSpec.describe Performance, type: :model do
   it { should respond_to(:contest) }
   it { should respond_to(:category) }
   it { should respond_to(:stage_time) }
+  it { should respond_to(:edit_code) }
 
   it "finds its predecessor, if present" do
     predecessor = create(:performance)
@@ -115,5 +116,34 @@ RSpec.describe Performance, type: :model do
       ]
     end
     it { should_not be_valid }
+  end
+
+  it "should not be valid with a non-unique edit code" do
+    existing_performance = create(:performance)
+    performance = create(:performance)
+
+    # Now we can tweak the code, which is only generated before validation on create
+    performance.edit_code = existing_performance.edit_code
+    expect(performance).not_to be_valid
+  end
+
+  # Callbacks
+
+  it "adds an edit code when validating on creation" do
+    # This test replaces the "presence: true" validation test, which won't
+    # work because the very act of validating makes the performance valid.
+    performance = build(:performance)
+    expect(performance.edit_code).to be_nil
+    performance.valid?
+    expect(performance.edit_code).not_to be_nil
+  end
+
+  it "doesn't add an edit code when validating later" do
+    performance = create(:performance)
+    edit_code = performance.edit_code
+
+    expect {
+      performance.valid?
+    }.not_to change(performance, :edit_code)
   end
 end
