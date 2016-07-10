@@ -52,18 +52,29 @@ RSpec.describe ContestPolicy do
   end
 
   describe "scope" do
-    subject (:policy_scope) { ContestPolicy::Scope.new(user, scope).resolve }
-
     let (:host) { create(:host) }
-    let (:user) { User.new(hosts: [host]) }
     let (:scope) { Contest.all }
 
-    it "hides contests whose host is not among the user's hosts" do
-      own_contest_1 = create(:contest, host: host)
-      foreign_contest = create(:contest)
-      own_contest_2 = create(:contest, host: host)
+    let (:contest1) { create(:contest, host: host) } # "own" contest
+    let (:contest2) { create(:contest) } # "foreign" contest
+    let (:contest3) { create(:contest, host: host) } # "own" contest
 
-      expect(policy_scope).to eq [own_contest_1, own_contest_2]
+    subject (:policy_scope) { ContestPolicy::Scope.new(user, scope).resolve }
+
+    context "for regular users" do
+      let (:user) { build(:user, hosts: [host]) }
+
+      it "hides contests whose host is not among the user's hosts" do
+        expect(policy_scope).to eq [contest1, contest3]
+      end
+    end
+
+    context "for inspectors" do
+      let (:user) { build(:inspector) }
+
+      it "shows all contests" do
+        expect(policy_scope).to eq [contest1, contest2, contest3]
+      end
     end
   end
 end
