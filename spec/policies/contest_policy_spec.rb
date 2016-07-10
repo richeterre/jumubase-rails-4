@@ -31,12 +31,22 @@ RSpec.describe ContestPolicy do
     end
 
     permissions :index_performances? do
-      it "denies access if host is not among the user's hosts" do
-        expect(subject).not_to permit(build(:user, hosts: []), Contest.new(host: host))
+      context "for regular users" do
+        it "denies access if host is not among the user's hosts" do
+          expect(subject).not_to permit(build(:user, hosts: []), Contest.new(host: host))
+        end
+
+        it "grants access if host is among the user's hosts" do
+          expect(subject).to permit(build(:user, hosts: [host]), Contest.new(host: host))
+        end
       end
 
-      it "grants access if host is among the user's hosts" do
-        expect(subject).to permit(build(:user, hosts: [host]), Contest.new(host: host))
+      it "grants access to inspectors" do
+        expect(subject).to permit(build(:inspector), Contest.new)
+      end
+
+      it "grants access to admins" do
+        expect(subject).to permit(build(:admin), Contest.new)
       end
     end
   end

@@ -8,7 +8,7 @@ class ContestPolicy < ApplicationPolicy
   end
 
   def index_performances?
-    user.host_ids.include? record.host_id
+    user.admin? || user.inspector? || user.host_ids.include?(record.host_id)
   end
 
   class Scope < Scope
