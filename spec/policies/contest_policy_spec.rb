@@ -8,38 +8,35 @@ RSpec.describe ContestPolicy do
 
     permissions :show? do
       it "denies access if host is not among the user's hosts" do
-        expect(subject).not_to permit(User.new(hosts: []), Contest.new(host: host))
+        expect(subject).not_to permit(build(:user, hosts: []), Contest.new(host: host))
       end
 
       it "grants access if host is among the user's hosts" do
-        expect(subject).to permit(User.new(hosts: [host]), Contest.new(host: host))
+        expect(subject).to permit(build(:user, hosts: [host]), Contest.new(host: host))
       end
     end
 
     permissions :create? do
       it "is denied for regular users" do
-        regular_user = User.new(role: 'regular')
-        expect(subject).not_to permit(regular_user, Contest)
+        expect(subject).not_to permit(build(:user), Contest)
       end
 
       it "is denied for inspectors" do
-        inspector = User.new(role: 'inspector')
-        expect(subject).not_to permit(inspector, Contest)
+        expect(subject).not_to permit(build(:inspector), Contest)
       end
 
       it "is allowed for admins" do
-        admin = User.new(role: 'admin')
-        expect(subject).to permit(admin, Contest)
+        expect(subject).to permit(build(:admin), Contest)
       end
     end
 
     permissions :index_performances? do
       it "denies access if host is not among the user's hosts" do
-        expect(subject).not_to permit(User.new(hosts: []), Contest.new(host: host))
+        expect(subject).not_to permit(build(:user, hosts: []), Contest.new(host: host))
       end
 
       it "grants access if host is among the user's hosts" do
-        expect(subject).to permit(User.new(hosts: [host]), Contest.new(host: host))
+        expect(subject).to permit(build(:user, hosts: [host]), Contest.new(host: host))
       end
     end
   end

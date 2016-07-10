@@ -71,6 +71,14 @@ FactoryGirl.define do
     email "tom@example.org"
     password "password"
     role "regular"
+
+    factory :inspector do
+      role "inspector"
+    end
+
+    factory :admin do
+      role "admin"
+    end
   end
 
   factory :venue do
