@@ -20,6 +20,10 @@ RSpec.describe ContestPolicy do
       it "grants access to inspectors" do
         expect(subject).to permit(build(:inspector), Contest.new)
       end
+
+      it "grants access to admins" do
+        expect(subject).to permit(build(:admin), Contest.new)
+      end
     end
 
     permissions :create? do
