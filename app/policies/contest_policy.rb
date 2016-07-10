@@ -1,6 +1,6 @@
 class ContestPolicy < ApplicationPolicy
   def show?
-    user.host_ids.include? record.host_id
+    user.inspector? || user.host_ids.include?(record.host_id)
   end
 
   def create?
