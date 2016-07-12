@@ -3,20 +3,39 @@ RSpec.describe ContestCategoryPolicy do
   describe "scope" do
     subject (:policy_scope) { ContestCategoryPolicy::Scope.new(user, scope).resolve }
 
-    let (:host) { create(:host) }
-    let (:user) { User.new(hosts: [host]) }
     let (:scope) { ContestCategory.all }
+    let (:host) { create(:host) }
 
-    it "hides contest categories whose contest host is not among the user's hosts" do
-      # Contest and contest category "owned" by the user
-      own_contest = create(:contest, host: host)
-      own_contest_cat = create(:contest_category, contest: own_contest)
+    # Contest and contest category "owned" by the user
+    let! (:own_contest) { create(:contest, host: host) }
+    let! (:own_contest_cat) { create(:contest_category, contest: own_contest) }
 
-      # "Foreign" contest and contest category
-      foreign_contest = create(:contest)
-      foreign_contest_cat = create(:contest_category, contest: foreign_contest)
+    # "Foreign" contest and contest category
+    let! (:foreign_contest) { create(:contest) }
+    let! (:foreign_contest_cat) { create(:contest_category, contest: foreign_contest) }
 
-      expect(policy_scope).to eq [own_contest_cat]
+    context "for regular users" do
+      let (:user) { User.new(hosts: [host]) }
+
+      it "hides contest categories whose contest host is not among the user's hosts" do
+        expect(policy_scope).to eq [own_contest_cat]
+      end
+    end
+
+    context "for inspectors" do
+      let (:user) { build(:inspector) }
+
+      it "shows all contest categories" do
+        expect(policy_scope).to eq [own_contest_cat, foreign_contest_cat]
+      end
+    end
+
+    context "for admins" do
+      let (:user) { build(:admin) }
+
+      it "shows all contest categories" do
+        expect(policy_scope).to eq [own_contest_cat, foreign_contest_cat]
+      end
     end
   end
 end
