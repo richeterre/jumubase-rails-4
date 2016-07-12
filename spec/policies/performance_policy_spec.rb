@@ -4,18 +4,28 @@ RSpec.describe PerformancePolicy do
     permissions :show? do
       subject { PerformancePolicy }
 
-      let (:host) { Host.new }
-      let (:performance) do
-        contest_category = ContestCategory.new(contest: Contest.new(host: host))
-        Performance.new(contest_category: contest_category)
+      context "for regular users" do
+        let (:host) { Host.new }
+        let (:performance) do
+          contest_category = ContestCategory.new(contest: Contest.new(host: host))
+          Performance.new(contest_category: contest_category)
+        end
+
+        it "denies access if contest host is not among the user's hosts" do
+          expect(subject).not_to permit(build(:user, hosts: []), performance)
+        end
+
+        it "grants access if contest host is among the user's hosts" do
+          expect(subject).to permit(build(:user, hosts: [host]), performance)
+        end
       end
 
-      it "denies access if contest host is not among the user's hosts" do
-        expect(subject).not_to permit(User.new(hosts: []), performance)
+      it "grants access to inspectors" do
+        expect(subject).to permit(build(:inspector), build(:performance))
       end
 
-      it "grants access if contest host is among the user's hosts" do
-        expect(subject).to permit(User.new(hosts: [host]), performance)
+      it "grants access to admins" do
+        expect(subject).to permit(build(:admin), build(:performance))
       end
     end
   end

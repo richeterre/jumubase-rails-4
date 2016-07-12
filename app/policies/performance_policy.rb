@@ -1,8 +1,8 @@
 class PerformancePolicy < ApplicationPolicy
   def show?
-    # Check if the user's hosts include either this performance's contest,
-    # or that of its predecessor
-    if user.host_ids.include?(record.contest.host_id)
+    if user.admin? || user.inspector?
+      return true
+    elsif user.host_ids.include?(record.contest.host_id)
       return true
     elsif predecessor = record.predecessor
       return user.host_ids.include?(predecessor.contest.host_id)
