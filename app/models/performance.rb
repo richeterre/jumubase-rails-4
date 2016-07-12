@@ -50,7 +50,7 @@ class Performance < ActiveRecord::Base
       end
 
       # Check if all participants are accompanists
-      if appearances.all? {|a| a.accompaniment? }
+      if !appearances.empty? && appearances.all? {|a| a.accompaniment? }
         errors.add(:base, :cannot_have_mere_accompanists)
       end
 
