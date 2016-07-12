@@ -33,28 +33,46 @@ RSpec.describe PerformancePolicy do
   describe "scope" do
     subject (:policy_scope) { PerformancePolicy::Scope.new(user, scope).resolve }
 
-    let (:host) { create(:host) }
-    let (:user) { User.new(hosts: [host]) }
     let (:scope) { Performance.all }
+    let (:host) { create(:host) }
 
-    it "hides performances whose contest host or predecessor's contest host is not among the user's hosts" do
-      # Contest and performance "owned" by the user
-      own_contest = create(:contest, host: host)
-      own_contest_cat = create(:contest_category, contest: own_contest)
-      own_perf = create(:performance, contest_category: own_contest_cat)
+    # Contest and performance associated with the host
+    let ( :contest1 ) { create(:contest, host: host) }
+    let ( :contest1_cat ) { create(:contest_category, contest: contest1) }
+    let ( :performance1 ) { create(:performance, contest_category: contest1_cat) }
 
-      # "Foreign" contest and performance
-      foreign_contest = create(:contest)
-      foreign_contest_cat = create(:contest_category, contest: foreign_contest)
-      foreign_perf = create(:performance, contest_category: foreign_contest_cat)
+    # "Foreign" contest and performance
+    let ( :contest2 ) { create(:contest) }
+    let ( :contest2_cat ) { create(:contest_category, contest: contest2) }
+    let ( :performance2 ) { create(:performance, contest_category: contest2_cat) }
 
-      # Performance in foreign contest, but with predecessor owned by user
-      own_pred_perf = create(:performance,
-        contest_category: foreign_contest_cat,
-        predecessor: own_perf
-      )
+    # Performance in foreign contest, but with predecessor in host's own contest
+    let ( :performance3 ) do
+      create(:performance, contest_category: contest2_cat, predecessor: performance1)
+    end
 
-      expect(policy_scope).to eq [own_perf, own_pred_perf]
+    context "for regular users" do
+      let (:user) { User.new(hosts: [host]) }
+
+      it "hides performances whose contest host or predecessor's contest host is not among the user's hosts" do
+        expect(policy_scope).to eq [performance1, performance3]
+      end
+    end
+
+    context "for inspectors" do
+      let (:user) { build(:inspector) }
+
+      it "shows all performances" do
+        expect(policy_scope).to eq [performance1, performance2, performance3]
+      end
+    end
+
+    context "for admins" do
+      let (:user) { build(:admin) }
+
+      it "shows all performances" do
+        expect(policy_scope).to eq [performance1, performance2, performance3]
+      end
     end
   end
 end
