@@ -24,6 +24,11 @@ RSpec.describe Contest, type: :model do
 
   # Associations
 
+  it { should respond_to(:host) }
+  it { should respond_to(:contest_categories) }
+  it { should respond_to(:categories) }
+  it { should respond_to(:performances) }
+
   it "should destroy its associated contest categories" do
     contest = create(:contest, contest_categories: build_list(:contest_category, 3))
     expect { contest.destroy }.to change(ContestCategory, :count).by(-3)
