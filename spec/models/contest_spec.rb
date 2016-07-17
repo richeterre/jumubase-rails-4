@@ -22,6 +22,15 @@ RSpec.describe Contest, type: :model do
 
   subject { contest }
 
+  # Associations
+
+  it "should destroy its associated contest categories" do
+    contest = create(:contest, contest_categories: build_list(:contest_category, 3))
+    expect { contest.destroy }.to change(ContestCategory, :count).by(-3)
+  end
+
+  # Validations
+
   it { should be_valid }
 
   describe "without a season" do

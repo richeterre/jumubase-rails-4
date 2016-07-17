@@ -22,7 +22,7 @@ class Contest < ActiveRecord::Base
   include JumuHelper
 
   belongs_to :host
-  has_many :contest_categories
+  has_many :contest_categories, dependent: :destroy
   has_many :categories, through: :contest_categories
   has_many :performances, through: :contest_categories
 
