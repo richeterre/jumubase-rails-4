@@ -22,11 +22,13 @@ class Performance < ActiveRecord::Base
   belongs_to :contest_category
   belongs_to :predecessor, class_name: 'Performance'
   belongs_to :stage_venue, class_name: 'Venue'
-  has_many :appearances, dependent: :destroy
+  has_many :appearances, inverse_of: :performance, dependent: :destroy
   has_many :pieces, dependent: :destroy
 
   delegate :contest, to: :contest_category
   delegate :category, to: :contest_category
+
+  accepts_nested_attributes_for :appearances
 
   validates :contest_category, presence: true
   validates :edit_code, uniqueness: true

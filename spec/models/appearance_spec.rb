@@ -20,6 +20,18 @@ RSpec.describe Appearance, type: :model do
 
   subject { appearance }
 
+  # Associations
+
+  it { should respond_to(:performance) }
+  it { should respond_to(:participant) }
+  it { should respond_to(:instrument) }
+
+  it "can be created alongside a nested participant"
+
+  it "cannot be created alongside multiple nested participants"
+
+  # Validations
+
   it { should be_valid }
 
   describe "without an associated performance" do
@@ -59,6 +71,8 @@ RSpec.describe Appearance, type: :model do
       end
     end
   end
+
+  # Appearance types
 
   describe "with a soloist" do
     before { appearance.participant_role = 'soloist' }

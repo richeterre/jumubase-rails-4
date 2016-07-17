@@ -1,4 +1,6 @@
-describe "Contests endpoint" do
+require 'rails_helper'
+
+describe "GET /contests" do
   it "returns all contests" do
     FactoryGirl.create_list(:contest, 5)
 

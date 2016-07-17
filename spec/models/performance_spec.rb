@@ -65,6 +65,8 @@ RSpec.describe Performance, type: :model do
     }.to change(Piece, :count).by(-2)
   end
 
+  it "can be created alongside nested appearances"
+
   # Validations
 
   it { should be_valid }

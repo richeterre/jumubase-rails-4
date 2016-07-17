@@ -19,9 +19,11 @@
 #
 
 class Appearance < ActiveRecord::Base
-  belongs_to :performance
+  belongs_to :performance, inverse_of: :appearances
   belongs_to :participant
   belongs_to :instrument
+
+  accepts_nested_attributes_for :participant
 
   validates :performance, presence: true
   validates :participant, presence: true
