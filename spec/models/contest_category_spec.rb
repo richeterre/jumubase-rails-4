@@ -17,9 +17,18 @@ RSpec.describe ContestCategory, type: :model do
 
   subject { contest_category }
 
+  # Associations
+
   it { should respond_to(:contest) }
   it { should respond_to(:category) }
   it { should respond_to(:performances) }
+
+  it "should destroy its associated performances" do
+    contest_category = create(:contest_category, performances: build_list(:performance, 3))
+    expect { contest_category.destroy }.to change(Performance, :count).by(-3)
+  end
+
+  # Validations
 
   it { should be_valid }
 end

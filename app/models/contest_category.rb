@@ -17,5 +17,5 @@
 class ContestCategory < ActiveRecord::Base
   belongs_to :contest
   belongs_to :category
-  has_many :performances
+  has_many :performances, dependent: :destroy
 end
