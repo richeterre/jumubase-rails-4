@@ -36,3 +36,6 @@ bower.json
 
 # Ignore local environment variables
 .env
+
+# Ignore Byebug history
+.byebug_history
