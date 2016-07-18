@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "GET /contests" do
-  it "returns all contests" do
+  it "should return all contests" do
     FactoryGirl.create_list(:contest, 5)
 
     get api_v1_contests_path

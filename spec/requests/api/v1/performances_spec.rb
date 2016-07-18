@@ -21,7 +21,7 @@ describe "POST /performances" do
   end
 
   describe "with valid parameters" do
-    it "creates a new performance" do
+    it "should create a new performance" do
       expect {
         post api_v1_contest_performances_path(contest.id), params
       }.to change(Performance, :count).by(1)
@@ -48,7 +48,7 @@ describe "POST /performances" do
   end
 
   describe "with invalid parameters" do
-    it "returns a list of validation errors" do
+    it "should return a list of validation errors" do
       params[:performance][:contest_category_id] = nil
       params[:performance][:appearances_attributes][0][:instrument_id] = nil
 
