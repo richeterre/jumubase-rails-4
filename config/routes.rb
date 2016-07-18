@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :contests, only: [:index] do
-        resources :performances, only: [:index, :create]
+        resources :performances, only: :index # nested to allow filtering by contest
       end
+      resources :performances, only: :create
     end
   end
 
