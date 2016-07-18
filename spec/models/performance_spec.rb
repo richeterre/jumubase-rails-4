@@ -65,7 +65,33 @@ RSpec.describe Performance, type: :model do
     }.to change(Piece, :count).by(-2)
   end
 
-  it "can be created alongside nested appearances"
+  describe "when created with nested appearances" do
+    let (:contest_category) { create(:contest_category) }
+    let (:participant) { create(:participant) }
+    let (:instrument) { create(:instrument) }
+    let (:params) do
+      {
+        contest_category_id: contest_category.id,
+        appearances_attributes: [
+          {
+            participant_id: participant.id,
+            instrument_id: instrument.id,
+            participant_role: 'soloist'
+          },
+          {
+            participant_id: participant.id,
+            instrument_id: instrument.id,
+            participant_role: 'accompanist'
+          }
+        ]
+      }
+    end
+
+    subject { lambda { Performance.create(params) } }
+
+    it { should change(Performance, :count).by(1) }
+    it { should change(Appearance, :count).by(2) }
+  end
 
   # Validations
 
