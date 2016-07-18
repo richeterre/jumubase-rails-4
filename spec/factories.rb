@@ -7,21 +7,21 @@ FactoryGirl.define do
   end
 
   factory :category do
-    name "Klavier solo"
-    slug "Klavier"
+    sequence(:name) { |n| "Category #{n}" }
+    slug { name.parameterize }
     genre "classical"
     solo true
     ensemble false
   end
 
   factory :contest do
-    season 1
+    sequence(:season)
     level 1
     host
-    begins "2016-01-15"
-    ends "2016-01-16"
-    certificate_date "2016-01-16"
-    signup_deadline "2015-12-16 00:00:00"
+    begins { Date.new(year_for_season(season), 1, 1) }
+    ends { begins + 1.day }
+    certificate_date { ends }
+    signup_deadline { begins - 1.month }
   end
 
   factory :contest_category do
@@ -30,23 +30,23 @@ FactoryGirl.define do
   end
 
   factory :host do
-    name "DS Helsinki"
+    sequence(:name) { |n| "Host #{n}" }
     city "Helsinki"
     country_code "FI"
     time_zone "Europe/Helsinki"
   end
 
   factory :instrument do
-    name "Klavier"
+    sequence(:name) { |n| "Instrument #{n}" }
   end
 
   factory :participant do
-    first_name "Tom"
-    last_name "Teilnehmer"
+    first_name "Participant"
+    sequence(:last_name) { |n| "#{n}" }
     birthdate "2000-01-01"
     country_code "FI"
     phone "12345"
-    email "tom.teilnehmer@example.org"
+    email { "#{first_name}.#{last_name}@example.org".downcase }
   end
 
   factory :performance do
@@ -60,7 +60,7 @@ FactoryGirl.define do
 
   factory :piece do
     performance
-    title "4‘33“"
+    title "4′33″"
     composer_name "John Cage"
     epoch "f"
     minutes 4
@@ -68,7 +68,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-    email "tom@example.org"
+    sequence(:email) { |n| "user-#{n}@example.org" }
     password "password"
     role "regular"
 
@@ -82,7 +82,7 @@ FactoryGirl.define do
   end
 
   factory :venue do
-    name "Aula"
+    sequence(:name) { |n| "Venue #{n}" }
     host
   end
 end
