@@ -4,7 +4,7 @@ module API::V1
     def create
       @performance = Performance.new(performance_params)
       if @performance.save
-        render json: @performance, status: :created
+        render status: :created
       else
         render json: @performance.errors, status: :bad_request
       end
