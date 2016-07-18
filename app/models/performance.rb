@@ -33,6 +33,7 @@ class Performance < ActiveRecord::Base
   validates :contest_category, presence: true
   validates :edit_code, uniqueness: true
   validate :check_role_combinations
+  validate :check_multiple_participant_appearances
 
   before_validation :set_unique_edit_code, on: :create
 
@@ -66,6 +67,13 @@ class Performance < ActiveRecord::Base
       has_ensemblists = appearances.select {|a| a.ensemble? }.size > 0
       if has_soloists && has_ensemblists
         errors.add(:base, :cannot_have_soloists_and_ensemblists)
+      end
+    end
+
+    def check_multiple_participant_appearances
+      # Check if the same participant appears multiple times
+      if appearances.group_by { |a| a.participant_id }.any? { |k, v| v.size > 1 }
+        errors.add(:base, :cannot_have_same_participant_appear_multiple_times)
       end
     end
 

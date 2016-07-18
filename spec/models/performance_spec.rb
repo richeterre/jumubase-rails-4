@@ -67,19 +67,19 @@ RSpec.describe Performance, type: :model do
 
   describe "when created with nested appearances" do
     let (:contest_category) { create(:contest_category) }
-    let (:participant) { create(:participant) }
+    let (:participants) { create_list(:participant, 2) }
     let (:instrument) { create(:instrument) }
     let (:params) do
       {
         contest_category_id: contest_category.id,
         appearances_attributes: [
           {
-            participant_id: participant.id,
+            participant_id: participants[0].id,
             instrument_id: instrument.id,
             participant_role: 'soloist'
           },
           {
-            participant_id: participant.id,
+            participant_id: participants[1].id,
             instrument_id: instrument.id,
             participant_role: 'accompanist'
           }
@@ -141,6 +141,17 @@ RSpec.describe Performance, type: :model do
       performance.appearances = [
         build(:appearance, participant_role: 'soloist'),
         build(:appearance, participant_role: 'ensemblist')
+      ]
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with the same participant appearing multiple times" do
+    before do
+      participant = build(:participant)
+      performance.appearances = [
+        build(:appearance, participant: participant, participant_role: 'soloist'),
+        build(:appearance, participant: participant, participant_role: 'accompanist')
       ]
     end
     it { should_not be_valid }
