@@ -7,6 +7,6 @@ describe "GET /contests" do
     get api_v1_contests_path
 
     expect(response).to be_success
-    expect(json['contests'].length).to eq(5)
+    expect(json.length).to eq(5)
   end
 end
