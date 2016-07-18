@@ -54,8 +54,6 @@ describe "POST /performances" do
 
       post api_v1_contest_performances_path(contest.id), params
 
-      json = JSON.parse(response.body)
-
       expect(response).to have_http_status(400)
       expect(json.length).to eq(2)
     end
