@@ -33,17 +33,19 @@ RSpec.describe Appearance, type: :model do
     end
 
     let (:instrument) { create(:instrument) }
+    let (:params) do
+      {
+        performance_id: @performance.id,
+        instrument_id: instrument.id,
+        participant_role: 'soloist'
+      }
+    end
 
     subject { lambda { Appearance.create!(params) } }
 
     describe "that doesn't exist yet" do
-      let (:params) do
-        {
-          performance_id: @performance.id,
-          participant_attributes: attributes_for(:participant),
-          instrument_id: instrument.id,
-          participant_role: 'soloist'
-        }
+      before do
+        params[:participant_attributes] = attributes_for(:participant)
       end
 
       it { should change(Appearance, :count).by(1) }
@@ -54,39 +56,27 @@ RSpec.describe Appearance, type: :model do
       before { @participant = create(:participant) }
 
       describe "with identical data" do
-        let (:params) do
-          {
-            performance_id: @performance.id,
-            participant_id: @participant.id,
-            participant_attributes: @participant.attributes,
-            instrument_id: instrument.id,
-            participant_role: 'soloist'
-          }
+        before do
+          params[:participant_id] = @participant.id
+          params[:participant_attributes] = @participant.attributes
         end
 
         it { should change(Appearance, :count).by(1) }
         it { should change(Participant, :count).by(0) }
       end
 
-      describe "with different data (and both id and participant_id set)" do
-        let (:params) do
-          participant_attributes = @participant.attributes
-            .update({ "first_name" => "Different" })
-
-          return {
-            performance_id: @performance.id,
-            participant_id: @participant.id,
-            participant_attributes: participant_attributes,
-            instrument_id: instrument.id,
-            participant_role: 'soloist'
-          }
+      describe "with different data" do
+        before do
+          params[:participant_id] = @participant.id
+          params[:participant_attributes] = @participant.attributes
+              .update({ "first_name" => "Different" })
         end
 
         it { should change(Appearance, :count).by(1) }
         it { should change(Participant, :count).by(0) }
         it { should change {
-            Participant.find(@participant.id).first_name
-          }.to("Different") }
+          Participant.find(@participant.id).first_name
+        }.to("Different") }
       end
     end
   end
