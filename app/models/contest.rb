@@ -25,6 +25,7 @@ class Contest < ActiveRecord::Base
   has_many :contest_categories, dependent: :destroy
   has_many :categories, through: :contest_categories
   has_many :performances, through: :contest_categories
+  has_many :venues, through: :host
 
   validates :season, presence: true
   validates :level, inclusion: { in: 1..3 }

@@ -3,7 +3,8 @@ json.contests @contests do |contest|
   json.name contest.name
   json.time_zone contest.host.time_zone
 
-  json.performances contest.performances do |performance|
-    json.name "Performance #{performance.id}"
+  json.venues contest.venues do |venue|
+    json.id venue.id.to_s
+    json.name venue.name
   end
 end
