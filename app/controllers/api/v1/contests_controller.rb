@@ -1,11 +1,13 @@
 module API::V1
   class ContestsController < APIController
     def index
-      @contests = Contest.includes(
-        { contest_categories: :category },
-        :host,
-        :venues
-      )
+      @contests = Contest
+        .order('begins DESC')
+        .includes(
+          { contest_categories: :category },
+          :host,
+          :venues
+        )
 
       if timetable_filter = params[:timetables_public]
         filter_value = (timetable_filter == "1")
