@@ -81,7 +81,7 @@ describe "POST /performances" do
 
       post api_v1_performances_path, params
 
-      expect(response).to have_http_status(400)
+      expect(response).to have_http_status(422)
       expect(json.length).to eq(2)
     end
   end
