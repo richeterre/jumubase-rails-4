@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160709131643) do
+ActiveRecord::Schema.define(version: 20160718173704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,15 +51,16 @@ ActiveRecord::Schema.define(version: 20160709131643) do
   add_index "contest_categories", ["contest_id"], name: "index_contest_categories_on_contest_id", using: :btree
 
   create_table "contests", force: :cascade do |t|
-    t.integer  "season",           null: false
-    t.integer  "level",            null: false
-    t.integer  "host_id",          null: false
-    t.date     "begins",           null: false
-    t.date     "ends",             null: false
+    t.integer  "season",                            null: false
+    t.integer  "level",                             null: false
+    t.integer  "host_id",                           null: false
+    t.date     "begins",                            null: false
+    t.date     "ends",                              null: false
     t.date     "certificate_date"
-    t.datetime "signup_deadline",  null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "signup_deadline",                   null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "timetables_public", default: false, null: false
   end
 
   add_index "contests", ["host_id"], name: "index_contests_on_host_id", using: :btree
