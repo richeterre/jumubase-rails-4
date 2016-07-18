@@ -1,5 +1,32 @@
 require 'rails_helper'
 
+describe "GET /performances" do
+  describe "for a contest with non-public timetables" do
+    let (:contest) { create(:contest, timetables_public: false) }
+
+    it "should return an empty 404 reponse" do
+      get api_v1_contest_performances_path(contest.id)
+
+      expect(response).to have_http_status(404)
+      expect(response.body).to be_empty
+    end
+  end
+
+  describe "for a contest with public timetables" do
+    let (:contest) { create(:contest, timetables_public: true) }
+
+    it "should return the contest's performances" do
+      contest_category = create(:contest_category, contest: contest)
+      create_list(:performance, 3, contest_category: contest_category)
+
+      get api_v1_contest_performances_path(contest.id)
+
+      expect(response).to have_http_status(200)
+      expect(json.length).to eq(3)
+    end
+  end
+end
+
 describe "POST /performances" do
 
   let (:contest) { create(:contest) }

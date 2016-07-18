@@ -1,6 +1,15 @@
 module API::V1
   class PerformancesController < APIController
 
+    def index
+      contest = Contest.find(params[:contest_id])
+      if !contest.timetables_public
+        return render nothing: true, status: :not_found
+      end
+
+      @performances = contest.performances
+    end
+
     def create
       @performance = Performance.new(performance_params)
       if @performance.save

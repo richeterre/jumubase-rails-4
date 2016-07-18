@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :contests, only: [:index] do
-        resources :performances, only: [:create]
+        resources :performances, only: [:index, :create]
       end
     end
   end
