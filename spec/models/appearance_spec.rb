@@ -48,8 +48,6 @@ RSpec.describe Appearance, type: :model do
     it { should change(Participant, :count).by(1) }
   end
 
-  it "cannot be created alongside multiple nested participants"
-
   # Validations
 
   it { should be_valid }
