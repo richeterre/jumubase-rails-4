@@ -18,7 +18,7 @@ module API::V1
       if @performance.save
         render status: :created
       else
-        render json: @performance.errors, status: :bad_request
+        render json: @performance.errors, status: :unprocessable_entity
       end
     end
 
