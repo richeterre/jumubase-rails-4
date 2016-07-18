@@ -4,7 +4,7 @@ describe "GET /contests" do
   it "returns all contests" do
     FactoryGirl.create_list(:contest, 5)
 
-    get '/api/v1/contests'
+    get api_v1_contests_path
 
     json = JSON.parse(response.body)
 

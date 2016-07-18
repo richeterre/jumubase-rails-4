@@ -23,7 +23,7 @@ describe "POST /performances" do
   describe "with valid parameters" do
     it "creates a new performance" do
       expect {
-        post "/api/v1/contests/#{contest.id}/performances", params
+        post api_v1_contest_performances_path(contest.id), params
       }.to change(Performance, :count).by(1)
 
       expect(response).to have_http_status(201)
@@ -38,7 +38,7 @@ describe "POST /performances" do
           .update({ "first_name" => "Different" })
       end
 
-      subject { lambda { post "/api/v1/contests/#{contest.id}/performances", params } }
+      subject { lambda { post api_v1_contest_performances_path(contest.id), params } }
 
       it { should change(Performance, :count).by(1) }
       it { should change(Appearance, :count).by(1) }
@@ -52,7 +52,7 @@ describe "POST /performances" do
       params[:performance][:contest_category_id] = nil
       params[:performance][:appearances_attributes][0][:instrument_id] = nil
 
-      post "/api/v1/contests/#{contest.id}/performances", params
+      post api_v1_contest_performances_path(contest.id), params
 
       json = JSON.parse(response.body)
 
