@@ -17,8 +17,10 @@ module API::V1
           :contest_category_id,
           {
             appearances_attributes: [
+              :participant_id,
               {
                 participant_attributes: [
+                  :id,
                   :first_name,
                   :last_name,
                   :birthdate,

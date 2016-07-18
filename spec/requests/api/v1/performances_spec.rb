@@ -20,12 +20,31 @@ describe "POST /performances" do
     }
   end
 
-  it "creates a new performance" do
-    expect {
-      post "/api/v1/contests/#{contest.id}/performances", params
-    }.to change(Performance, :count).by(1)
+  describe "with valid parameters" do
+    it "creates a new performance" do
+      expect {
+        post "/api/v1/contests/#{contest.id}/performances", params
+      }.to change(Performance, :count).by(1)
 
-    expect(response).to have_http_status(201)
+      expect(response).to have_http_status(201)
+    end
+
+    describe "having an existing participant" do
+      before do
+        @participant = create(:participant)
+        appearance_attributes = params[:performance][:appearances_attributes][0]
+        appearance_attributes[:participant_id] = @participant.id
+        appearance_attributes[:participant_attributes] = @participant.attributes
+          .update({ "first_name" => "Different" })
+      end
+
+      subject { lambda { post "/api/v1/contests/#{contest.id}/performances", params } }
+
+      it { should change(Performance, :count).by(1) }
+      it { should change(Appearance, :count).by(1) }
+      it { should change(Participant, :count).by(0) }
+      it { should change { Participant.find(@participant.id).first_name }.to("Different") }
+    end
   end
 
   describe "with invalid parameters" do
