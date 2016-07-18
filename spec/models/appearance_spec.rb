@@ -33,19 +33,62 @@ RSpec.describe Appearance, type: :model do
     end
 
     let (:instrument) { create(:instrument) }
-    let (:params) do
-      {
-        performance_id: @performance.id,
-        participant_attributes: attributes_for(:participant),
-        instrument_id: instrument.id,
-        participant_role: 'soloist'
-      }
-    end
 
     subject { lambda { Appearance.create!(params) } }
 
-    it { should change(Appearance, :count).by(1) }
-    it { should change(Participant, :count).by(1) }
+    describe "that doesn't exist yet" do
+      let (:params) do
+        {
+          performance_id: @performance.id,
+          participant_attributes: attributes_for(:participant),
+          instrument_id: instrument.id,
+          participant_role: 'soloist'
+        }
+      end
+
+      it { should change(Appearance, :count).by(1) }
+      it { should change(Participant, :count).by(1) }
+    end
+
+    describe "that already exists" do
+      before { @participant = create(:participant) }
+
+      describe "with identical data" do
+        let (:params) do
+          {
+            performance_id: @performance.id,
+            participant_id: @participant.id,
+            participant_attributes: @participant.attributes,
+            instrument_id: instrument.id,
+            participant_role: 'soloist'
+          }
+        end
+
+        it { should change(Appearance, :count).by(1) }
+        it { should change(Participant, :count).by(0) }
+      end
+
+      describe "with different data (and both id and participant_id set)" do
+        let (:params) do
+          participant_attributes = @participant.attributes
+            .update({ "first_name" => "Different" })
+
+          return {
+            performance_id: @performance.id,
+            participant_id: @participant.id,
+            participant_attributes: participant_attributes,
+            instrument_id: instrument.id,
+            participant_role: 'soloist'
+          }
+        end
+
+        it { should change(Appearance, :count).by(1) }
+        it { should change(Participant, :count).by(0) }
+        it { should change {
+            Participant.find(@participant.id).first_name
+          }.to("Different") }
+      end
+    end
   end
 
   # Validations
