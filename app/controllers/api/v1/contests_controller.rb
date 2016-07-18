@@ -6,6 +6,11 @@ module API::V1
         :host,
         :venues
       )
+
+      if timetable_filter = params[:timetables_public]
+        filter_value = (timetable_filter == "1")
+        @contests = @contests.where(timetables_public: filter_value)
+      end
     end
   end
 end
