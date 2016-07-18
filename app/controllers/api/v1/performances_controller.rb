@@ -7,7 +7,10 @@ module API::V1
         return render nothing: true, status: :not_found
       end
 
-      @performances = contest.performances
+      @performances = contest.performances.includes(
+        { contest_category: :category },
+        { appearances: [:participant, :instrument] }
+      )
     end
 
     def create
