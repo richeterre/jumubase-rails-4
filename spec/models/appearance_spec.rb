@@ -26,7 +26,27 @@ RSpec.describe Appearance, type: :model do
   it { should respond_to(:participant) }
   it { should respond_to(:instrument) }
 
-  it "can be created alongside a nested participant"
+  describe "when created with a nested participant" do
+    before do
+      # Must be created _before_ to not break change-by-1 assertions
+      @performance = create(:performance)
+    end
+
+    let (:instrument) { create(:instrument) }
+    let (:params) do
+      {
+        performance_id: @performance.id,
+        participant_attributes: attributes_for(:participant),
+        instrument_id: instrument.id,
+        participant_role: 'soloist'
+      }
+    end
+
+    subject { lambda { Appearance.create!(params) } }
+
+    it { should change(Appearance, :count).by(1) }
+    it { should change(Participant, :count).by(1) }
+  end
 
   it "cannot be created alongside multiple nested participants"
 
