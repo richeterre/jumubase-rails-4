@@ -70,13 +70,18 @@ RSpec.describe User, type: :model do
 
   # Helpers
 
-  it "tells whether it has an admin role" do
+  it "should provide a full name" do
+    user = build(:user, first_name: "A", last_name: "B")
+    expect(user.full_name).to eq("A B")
+  end
+
+  it "should tell whether it has an admin role" do
     expect(build(:user).admin?).to be_falsey
     expect(build(:inspector).admin?).to be_falsey
     expect(build(:admin).admin?).to be_truthy
   end
 
-  it "tells whether it has an inspector role" do
+  it "should tell whether it has an inspector role" do
     expect(build(:user).inspector?).to be_falsey
     expect(build(:inspector).inspector?).to be_truthy
     expect(build(:admin).inspector?).to be_falsey

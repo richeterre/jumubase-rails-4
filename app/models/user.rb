@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     presence: true,
     inclusion: { in: JUMU_USER_ROLES }
 
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
   def admin?
     self.role == 'admin'
   end
