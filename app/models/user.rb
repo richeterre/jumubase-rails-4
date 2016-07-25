@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  role                   :string           not null
+#  first_name             :string           not null
+#  last_name              :string           not null
 #
 # Indexes
 #
@@ -30,6 +32,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :hosts
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :role,
     presence: true,
     inclusion: { in: JUMU_USER_ROLES }

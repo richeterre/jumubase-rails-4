@@ -26,7 +26,24 @@ RSpec.describe User, type: :model do
 
   subject { user }
 
+  # Associations
+
+  it { should respond_to(:first_name) }
+  it { should respond_to(:last_name) }
+
+  # Validations
+
   it { should be_valid }
+
+  describe "without a first name" do
+    before { user.first_name = nil }
+    it { should_not be_valid }
+  end
+
+  describe "without a last name" do
+    before { user.last_name = nil }
+    it { should_not be_valid }
+  end
 
   describe "without a role" do
     before { user.role = nil }
@@ -50,6 +67,8 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  # Helpers
 
   it "tells whether it has an admin role" do
     expect(build(:user).admin?).to be_falsey
