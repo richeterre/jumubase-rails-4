@@ -26,3 +26,6 @@ JUMU_GENRES = %w(classical popular kimu)
 
 # Possible piece epoch values for the database
 JUMU_EPOCHS = %w(a b c d e f)
+
+# Possible age group values for the database
+JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
