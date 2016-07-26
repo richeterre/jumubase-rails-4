@@ -7,6 +7,22 @@ module JumuHelper
     return JUMU_YEAR - JUMU_SEASON + season
   end
 
+  def age_group_for_birthdates_and_season(birthdates, season)
+    if birthdates.instance_of? Date
+      # Skip averaging step if only one date
+      avg_date = birthdates
+    else
+      # Convert dates to timestamps
+      timestamps = birthdates.map{ |date| date.to_time.to_f }
+      # Get "average" timestamp
+      avg_timestamp = timestamps.sum / birthdates.size
+      # Convert back to date
+      avg_date = Time.at(avg_timestamp).to_date
+    end
+    # Return age group for that date
+    age_group_for_date_and_season(avg_date, season)
+  end
+
   def age_group_for_date_and_season(date, season)
     season_year = year_for_season(season)
 
