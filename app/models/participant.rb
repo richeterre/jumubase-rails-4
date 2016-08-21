@@ -9,7 +9,7 @@
 #  street       :string
 #  postal_code  :string
 #  city         :string
-#  country_code :string           not null
+#  country_code :string
 #  phone        :string           not null
 #  email        :string           not null
 #  created_at   :datetime         not null
@@ -22,7 +22,6 @@ class Participant < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :birthdate, presence: true
-  validates :country_code, presence: true
   validates :phone, presence: true
   validates :email, presence: true, format: { with: email_regex }
 

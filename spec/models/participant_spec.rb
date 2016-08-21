@@ -9,7 +9,7 @@
 #  street       :string
 #  postal_code  :string
 #  city         :string
-#  country_code :string           not null
+#  country_code :string
 #  phone        :string           not null
 #  email        :string           not null
 #  created_at   :datetime         not null
@@ -38,11 +38,6 @@ RSpec.describe Participant, type: :model do
 
   describe "without a birthdate" do
     before { participant.birthdate = nil }
-    it { should_not be_valid }
-  end
-
-  describe "without a country code" do
-    before { participant.country_code = nil }
     it { should_not be_valid }
   end
 
