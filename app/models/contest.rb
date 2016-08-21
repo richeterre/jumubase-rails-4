@@ -14,10 +14,6 @@
 #  updated_at        :datetime         not null
 #  timetables_public :boolean          default(FALSE), not null
 #
-# Indexes
-#
-#  index_contests_on_host_id  (host_id)
-#
 
 class Contest < ActiveRecord::Base
   include JumuHelper

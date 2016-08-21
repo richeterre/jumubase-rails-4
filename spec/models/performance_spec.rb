@@ -8,6 +8,8 @@
 #  updated_at          :datetime         not null
 #  contest_category_id :integer          not null
 #  stage_time          :datetime
+#  stage_venue_id      :integer
+#  edit_code           :string           not null
 #
 
 require 'rails_helper'

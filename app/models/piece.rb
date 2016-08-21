@@ -14,10 +14,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-# Indexes
-#
-#  index_pieces_on_performance_id  (performance_id)
-#
 
 class Piece < ActiveRecord::Base
   belongs_to :performance

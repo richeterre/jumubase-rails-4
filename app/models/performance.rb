@@ -11,12 +11,6 @@
 #  stage_venue_id      :integer
 #  edit_code           :string           not null
 #
-# Indexes
-#
-#  index_performances_on_contest_category_id  (contest_category_id)
-#  index_performances_on_predecessor_id       (predecessor_id)
-#  index_performances_on_stage_venue_id       (stage_venue_id)
-#
 
 class Performance < ActiveRecord::Base
   belongs_to :contest_category

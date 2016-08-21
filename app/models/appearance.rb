@@ -11,12 +11,6 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-# Indexes
-#
-#  index_appearances_on_instrument_id   (instrument_id)
-#  index_appearances_on_participant_id  (participant_id)
-#  index_appearances_on_performance_id  (performance_id)
-#
 
 class Appearance < ActiveRecord::Base
   belongs_to :performance, inverse_of: :appearances
