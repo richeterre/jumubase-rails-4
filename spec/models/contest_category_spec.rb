@@ -31,4 +31,14 @@ RSpec.describe ContestCategory, type: :model do
   # Validations
 
   it { should be_valid }
+
+  describe "without a contest" do
+    before { contest_category.contest = nil }
+    it { should_not be_valid }
+  end
+
+  describe "without a category" do
+    before { contest_category.category = nil }
+    it { should_not be_valid }
+  end
 end
