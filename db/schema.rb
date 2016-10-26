@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160821165642) do
+ActiveRecord::Schema.define(version: 20161026210229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160821165642) do
     t.date     "begins",                            null: false
     t.date     "ends",                              null: false
     t.date     "certificate_date"
-    t.datetime "signup_deadline",                   null: false
+    t.date     "signup_deadline",                   null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "timetables_public", default: false, null: false

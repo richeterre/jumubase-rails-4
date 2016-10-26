@@ -9,7 +9,7 @@
 #  begins            :date             not null
 #  ends              :date             not null
 #  certificate_date  :date
-#  signup_deadline   :datetime         not null
+#  signup_deadline   :date             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  timetables_public :boolean          default(FALSE), not null
