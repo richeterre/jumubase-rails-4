@@ -2,18 +2,14 @@
 #
 # Table name: participants
 #
-#  id           :integer          not null, primary key
-#  first_name   :string           not null
-#  last_name    :string           not null
-#  birthdate    :date             not null
-#  street       :string
-#  postal_code  :string
-#  city         :string
-#  country_code :string
-#  phone        :string           not null
-#  email        :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id         :integer          not null, primary key
+#  first_name :string           not null
+#  last_name  :string           not null
+#  birthdate  :date             not null
+#  phone      :string           not null
+#  email      :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Participant < ActiveRecord::Base
