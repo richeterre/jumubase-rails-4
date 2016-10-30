@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  season            :integer          not null
-#  level             :integer          not null
+#  round             :integer          not null
 #  host_id           :integer          not null
 #  begins            :date             not null
 #  ends              :date             not null
@@ -25,7 +25,7 @@ class Contest < ActiveRecord::Base
   has_many :venues, through: :host
 
   validates :season, presence: true
-  validates :level, inclusion: { in: 1..3 }
+  validates :round, inclusion: { in: 1..3 }
   validates :host, presence: true
   validates :begins, presence: true
   validates :ends, presence: true
@@ -35,7 +35,7 @@ class Contest < ActiveRecord::Base
   validate :require_signup_deadline_before_beginning
 
   def name
-    "#{self.host.name}, #{short_name_for_level(self.level)} #{year_for_season(self.season)}"
+    "#{self.host.name}, #{short_name_for_round(self.round)} #{year_for_season(self.season)}"
   end
 
   private

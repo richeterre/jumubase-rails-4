@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026211342) do
+ActiveRecord::Schema.define(version: 20161030190019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20161026211342) do
 
   create_table "contests", force: :cascade do |t|
     t.integer  "season",                            null: false
-    t.integer  "level",                             null: false
+    t.integer  "round",                             null: false
     t.integer  "host_id",                           null: false
     t.date     "begins",                            null: false
     t.date     "ends",                              null: false

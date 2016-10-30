@@ -4,7 +4,7 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.input :season, input_html: { value: JUMU_SEASON } %>
-  <%= f.input :level, collection: @levels, label_method: lambda { |level| JUMU_LEVEL_SHORT_NAMES[level] } %>
+  <%= f.input :round, collection: @rounds, label_method: lambda { |round| JUMU_ROUND_SHORT_NAMES[round] } %>
   <%= f.association :host %>
   <%= f.input :begins %>
   <%= f.input :ends %>

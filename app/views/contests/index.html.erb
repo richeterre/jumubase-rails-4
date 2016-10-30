@@ -9,7 +9,7 @@
     <tr>
       <th><%= Contest.human_attribute_name(:name) %></th>
       <th><%= Contest.human_attribute_name(:season) %></th>
-      <th><%= Contest.human_attribute_name(:level) %></th>
+      <th><%= Contest.human_attribute_name(:round) %></th>
       <th><%= Contest.human_attribute_name(:host) %></th>
       <th><%= Contest.human_attribute_name(:begins) %></th>
       <th><%= Contest.human_attribute_name(:ends) %></th>
@@ -22,7 +22,7 @@
     <tr>
       <td><%= link_to contest.name, contest_path(contest) %></td>
       <td><%= contest.season %></td>
-      <td><%= contest.level %></td>
+      <td><%= contest.round %></td>
       <td><%= contest.host.name %></td>
       <td><%= contest.begins %></td>
       <td><%= contest.ends %></td>

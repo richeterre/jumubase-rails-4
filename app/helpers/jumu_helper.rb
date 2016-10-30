@@ -1,6 +1,6 @@
 module JumuHelper
-  def short_name_for_level(level)
-    return JUMU_LEVEL_SHORT_NAMES[level]
+  def short_name_for_round(round)
+    return JUMU_ROUND_SHORT_NAMES[round]
   end
 
   def year_for_season(season)

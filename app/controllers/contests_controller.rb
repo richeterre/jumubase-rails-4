@@ -13,7 +13,7 @@ class ContestsController < ApplicationController
     @contest = Contest.new
     authorize(@contest)
 
-    @levels = available_levels
+    @rounds = available_rounds
   end
 
   def create
@@ -23,7 +23,7 @@ class ContestsController < ApplicationController
     if @contest.save
       redirect_to contests_path
     else
-      @levels = available_levels
+      @rounds = available_rounds
       render 'new'
     end
   end
@@ -33,10 +33,10 @@ class ContestsController < ApplicationController
     def contest_params
       params
         .require(:contest)
-        .permit(:season, :level, :host_id, :begins, :ends, :signup_deadline, :certificate_date)
+        .permit(:season, :round, :host_id, :begins, :ends, :signup_deadline, :certificate_date)
     end
 
-    def available_levels
+    def available_rounds
       [1, 2] # Only allow adding contests for these rounds
     end
 end

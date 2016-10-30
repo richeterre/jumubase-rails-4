@@ -17,7 +17,7 @@ The application consists of two parts:
 
 The following information is unlikely to change often and therefore hard-coded into the software, residing in the `jumu_params.rb` file.
 
-Each annual season of "Jugend musiziert" consists of three __rounds__ in ascending level:
+Each annual season of "Jugend musiziert" consists of three __rounds__:
 
 1. Regionalwettbewerb (RW)
 2. Landeswettbewerb (LW)
@@ -49,7 +49,7 @@ __Venue__<br />
 A physical location, associated with a host, where performances are held.
 
 __Contest__<br />
-A single or multi-day event that forms the basic entity of Jugend musiziert. It has a _season_ (= competition year), and a _level_ that corresponds to the competition round (RW, LW or BW).
+A single or multi-day event that forms the basic entity of Jugend musiziert. It has a _season_ (= competition year), and a _round_ (RW, LW or BW).
 
 __Category__<br />
 A set of constraints for participating in a contest. There are solo and ensemble categories, e.g. "Violine solo" and "Vokal-Ensemble". Categories also mandate what pieces can be performed, as well as a min/max duration depending on the performance's age group.

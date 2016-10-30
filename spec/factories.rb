@@ -16,7 +16,7 @@ FactoryGirl.define do
 
   factory :contest do
     sequence(:season)
-    level 1
+    round 1
     host
     begins { Date.new(year_for_season(season), 1, 1) }
     ends { begins + 1.day }

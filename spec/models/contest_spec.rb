@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  season            :integer          not null
-#  level             :integer          not null
+#  round             :integer          not null
 #  host_id           :integer          not null
 #  begins            :date             not null
 #  ends              :date             not null
@@ -44,18 +44,18 @@ RSpec.describe Contest, type: :model do
     it { should_not be_valid }
   end
 
-  describe "without a level" do
-    before { contest.level = nil }
+  describe "without a round" do
+    before { contest.round = nil }
     it { should_not be_valid }
   end
 
-  describe "with a too low level" do
-    before { contest.level = 0 }
+  describe "with a too low round" do
+    before { contest.round = 0 }
     it { should_not be_valid }
   end
 
-  describe "with a too high level" do
-    before { contest.level = 4 }
+  describe "with a too high round" do
+    before { contest.round = 4 }
     it { should_not be_valid }
   end
 
@@ -91,7 +91,7 @@ RSpec.describe Contest, type: :model do
 
   it "should have the correct name" do
     host = build(:host, name: "DS Jumutown")
-    contest = build(:contest, season: 53, level: 2, host: host)
+    contest = build(:contest, season: 53, round: 2, host: host)
     expect(contest.name).to eq("DS Jumutown, LW 2016")
   end
 end
