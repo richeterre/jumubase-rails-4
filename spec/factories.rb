@@ -44,7 +44,6 @@ FactoryGirl.define do
     first_name "Participant"
     sequence(:last_name) { |n| "#{n}" }
     birthdate "2000-01-01"
-    country_code "FI"
     phone "12345"
     email { "#{first_name}.#{last_name}@example.org".downcase }
   end
