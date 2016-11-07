@@ -1,4 +1,4 @@
-<% provide(:title, "New contest") %>
+<% provide(:title, @contest.name) %>
 
 <%= simple_form_for @contest do |form| %>
   <%= render 'contest_fields', f: form %>

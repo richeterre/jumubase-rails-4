@@ -28,6 +28,25 @@ class ContestsController < ApplicationController
     end
   end
 
+  def edit
+    @contest = Contest.find(params[:id])
+    authorize(@contest)
+
+    @rounds = available_rounds
+  end
+
+  def update
+    @contest = Contest.find(params[:id])
+    authorize(@contest)
+
+    if @contest.update_attributes(contest_params)
+      redirect_to @contest
+    else
+      @rounds = available_rounds
+      render 'edit'
+    end
+  end
+
   private
 
     def contest_params

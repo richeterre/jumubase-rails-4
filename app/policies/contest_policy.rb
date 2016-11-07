@@ -7,6 +7,10 @@ class ContestPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def update?
+    user.admin?
+  end
+
   def index_performances?
     user.admin? || user.inspector? || user.host_ids.include?(record.host_id)
   end

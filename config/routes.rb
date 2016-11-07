@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :contests, only: [:index, :show, :new, :create] do
+  resources :contests do
     resources :performances, only: [:index, :show], shallow: true # only nests collection actions
   end
 
