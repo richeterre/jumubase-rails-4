@@ -1,0 +1,18 @@
+<% provide(:title, "Contest Categories") %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= ContestCategory.human_attribute_name(:category) %></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contest_categories.each do |contest_category| %>
+    <tr>
+      <td><%= contest_category.category.name %></td>
+      <td></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

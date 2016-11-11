@@ -54,6 +54,20 @@ RSpec.describe ContestPolicy do
       end
     end
 
+    permissions :index_contest_categories? do
+      it "is denied for regular users" do
+        expect(subject).not_to permit(build(:user), Contest)
+      end
+
+      it "is denied for inspectors" do
+        expect(subject).not_to permit(build(:inspector), Contest)
+      end
+
+      it "is allowed for admins" do
+        expect(subject).to permit(build(:admin), Contest)
+      end
+    end
+
     permissions :index_performances? do
       context "for regular users" do
         it "denies access if host is not among the user's hosts" do

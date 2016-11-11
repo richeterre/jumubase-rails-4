@@ -1,5 +1,8 @@
 <% provide(:title, @contest.name) %>
 
 <%= link_to "Edit contest", edit_contest_path(@contest), class: "button" %>
+<%= link_to "Manage contest categories", contest_contest_categories_path(@contest), class: "button" %>
+
+<br />
 
 <%= link_to "Show performances", contest_performances_path(@contest), class: "button" %>
