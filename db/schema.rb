@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030190019) do
+ActiveRecord::Schema.define(version: 20161111165847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20161030190019) do
   end
 
   add_index "contest_categories", ["category_id"], name: "index_contest_categories_on_category_id", using: :btree
+  add_index "contest_categories", ["contest_id", "category_id"], name: "index_contest_categories_on_contest_id_and_category_id", unique: true, using: :btree
   add_index "contest_categories", ["contest_id"], name: "index_contest_categories_on_contest_id", using: :btree
 
   create_table "contests", force: :cascade do |t|
