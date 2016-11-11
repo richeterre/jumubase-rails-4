@@ -1,4 +1,8 @@
 class ContestCategoryPolicy < ApplicationPolicy
+  def destroy?
+    user.admin?
+  end
+
   class Scope < Scope
     def resolve
       if user.admin? || user.inspector?

@@ -1,5 +1,24 @@
 RSpec.describe ContestCategoryPolicy do
 
+  describe "action" do
+
+    subject { ContestCategoryPolicy }
+
+    permissions :destroy? do
+      it "is denied for regular users" do
+        expect(subject).not_to permit(build(:user), Contest)
+      end
+
+      it "is denied for inspectors" do
+        expect(subject).not_to permit(build(:inspector), Contest)
+      end
+
+      it "is allowed for admins" do
+        expect(subject).to permit(build(:admin), Contest)
+      end
+    end
+  end
+
   describe "scope" do
     subject (:policy_scope) { ContestCategoryPolicy::Scope.new(user, scope).resolve }
 

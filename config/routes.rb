@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   end
 
   resources :contests do
-    resources :contest_categories, only: [:index]
-    resources :performances, only: [:index, :show], shallow: true # only nests collection actions
+    resources :contest_categories, only: [:index, :destroy], shallow: true
+    resources :performances, only: [:index, :show], shallow: true
   end
 
   root 'pages#home'

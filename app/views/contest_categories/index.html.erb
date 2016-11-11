@@ -11,7 +11,11 @@
     <% @contest_categories.each do |contest_category| %>
     <tr>
       <td><%= contest_category.category.name %></td>
-      <td></td>
+      <td>
+        <%= link_to "Delete", contest_category_path(contest_category),
+          method: :delete, class: "button"
+        %>
+      </td>
     </tr>
     <% end %>
   </tbody>
