@@ -8,11 +8,14 @@
 
 case Rails.env
 when "development"
-  User.create!(
+  FactoryGirl.create(:admin,
     first_name: "Martin",
     last_name: "Richter",
     email: "me@martinrichter.net",
     password: "jumubase",
-    role: "admin"
   )
+
+  contest = FactoryGirl.create(:contest, season: JUMU_SEASON)
+  contest_category = FactoryGirl.create(:contest_category, contest: contest)
+  FactoryGirl.create(:performance, contest_category: contest_category)
 end
