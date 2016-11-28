@@ -1,0 +1,16 @@
+<% provide(:title, "Categories") %>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= Category.human_attribute_name(:name) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+    <tr>
+      <td><%= category.name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

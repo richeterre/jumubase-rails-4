@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :categories, only: [:index]
+
   resources :contests do
     resources :contest_categories, only: [:index, :destroy], shallow: true
     resources :performances, only: [:index, :show], shallow: true
