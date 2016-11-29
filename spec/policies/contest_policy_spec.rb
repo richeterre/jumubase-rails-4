@@ -1,98 +1,66 @@
 RSpec.describe ContestPolicy do
 
-  describe "action" do
+  subject { described_class.new(user, contest) }
 
-    subject { ContestPolicy }
+  let (:resolved_scope) do
+    described_class::Scope.new(user, Contest.all).resolve
+  end
 
-    let (:host) { Host.new }
+  let (:host) { build(:host) }
 
-    permissions :show? do
-      context "for regular users" do
-        it "denies access if host is not among the user's hosts" do
-          expect(subject).not_to permit(build(:user, hosts: []), Contest.new(host: host))
-        end
+  # Create two contests, one being associated with the user
+  let! (:contest) { create(:contest, host: host) }
+  let! (:foreign_contest) { create(:contest) }
 
-        it "grants access if host is among the user's hosts" do
-          expect(subject).to permit(build(:user, hosts: [host]), Contest.new(host: host))
-        end
-      end
+  context "for regular users" do
+    let (:user) { build(:user) }
 
-      it "grants access to inspectors" do
-        expect(subject).to permit(build(:inspector))
-      end
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:index_contest_categories) }
 
-      it "grants access to admins" do
-        expect(subject).to permit(build(:admin))
-      end
+    describe "not associated with the contest's host" do
+      it { is_expected.to forbid_action(:show) }
+      it { is_expected.to forbid_action(:index_performances) }
     end
 
-    permissions :create?, :update?, :index_contest_categories? do
-      it "is denied for regular users" do
-        expect(subject).not_to permit(build(:user))
-      end
+    describe "associated with the contest's host" do
+      let (:user) { build(:user, hosts: [host]) }
 
-      it "is denied for inspectors" do
-        expect(subject).not_to permit(build(:inspector))
-      end
+      it { is_expected.to permit_action(:show) }
+      it { is_expected.to permit_action(:index_performances) }
 
-      it "is allowed for admins" do
-        expect(subject).to permit(build(:admin))
-      end
-    end
-
-    permissions :index_performances? do
-      context "for regular users" do
-        it "denies access if host is not among the user's hosts" do
-          expect(subject).not_to permit(build(:user, hosts: []), Contest.new(host: host))
-        end
-
-        it "grants access if host is among the user's hosts" do
-          expect(subject).to permit(build(:user, hosts: [host]), Contest.new(host: host))
-        end
-      end
-
-      it "grants access to inspectors" do
-        expect(subject).to permit(build(:inspector))
-      end
-
-      it "grants access to admins" do
-        expect(subject).to permit(build(:admin))
+      it "lists only contests whose host is associated with the user" do
+        expect(resolved_scope).to match_array [contest]
       end
     end
   end
 
-  describe "scope" do
-    let (:host) { create(:host) }
-    let (:scope) { Contest.all }
+  context "for inspectors" do
+    let (:user) { build(:inspector) }
 
-    let (:contest1) { create(:contest, host: host) } # "own" contest
-    let (:contest2) { create(:contest) } # "foreign" contest
-    let (:contest3) { create(:contest, host: host) } # "own" contest
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:index_contest_categories) }
 
-    subject (:policy_scope) { ContestPolicy::Scope.new(user, scope).resolve }
+    it { is_expected.to permit_action(:show) }
 
-    context "for regular users" do
-      let (:user) { build(:user, hosts: [host]) }
-
-      it "hides contests whose host is not among the user's hosts" do
-        expect(policy_scope).to eq [contest1, contest3]
-      end
+    it "lists all contests" do
+      expect(resolved_scope).to match_array [contest, foreign_contest]
     end
+  end
 
-    context "for inspectors" do
-      let (:user) { build(:inspector) }
+  context "for admins" do
+    let (:user) { build(:admin) }
 
-      it "shows all contests" do
-        expect(policy_scope).to eq [contest1, contest2, contest3]
-      end
-    end
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:index_contest_categories) }
 
-    context "for admins" do
-      let (:user) { build(:admin) }
+    it { is_expected.to permit_action(:show) }
 
-      it "shows all contests" do
-        expect(policy_scope).to eq [contest1, contest2, contest3]
-      end
+    it "lists all contests" do
+      expect(resolved_scope).to match_array [contest, foreign_contest]
     end
   end
 end

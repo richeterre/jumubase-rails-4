@@ -37,6 +37,11 @@ gem 'simple_form'
 # Use ZURB Foundation for layout
 gem 'foundation-rails'
 
+group :test do
+  # Use custom matchers to test Pundit policies (see http://www.thunderboltlabs.com/blog/2013/03/27/testing-pundit-policies-with-rspec/)
+  gem 'pundit-matchers', '1.1.0'
+end
+
 group :development, :test do
   # Use RSpec for tests
   gem 'rspec-rails', '~> 3.0'

@@ -1,78 +1,53 @@
 RSpec.describe PerformancePolicy do
 
-  describe "action" do
-    permissions :show? do
-      subject { PerformancePolicy }
+  subject { described_class.new(user, performance) }
 
-      context "for regular users" do
-        let (:host) { Host.new }
-        let (:performance) do
-          contest_category = ContestCategory.new(contest: Contest.new(host: host))
-          Performance.new(contest_category: contest_category)
-        end
+  let (:resolved_scope) do
+    described_class::Scope.new(user, Performance.all).resolve
+  end
 
-        it "denies access if contest host is not among the user's hosts" do
-          expect(subject).not_to permit(build(:user, hosts: []), performance)
-        end
+  let (:host) { create(:host) }
 
-        it "grants access if contest host is among the user's hosts" do
-          expect(subject).to permit(build(:user, hosts: [host]), performance)
-        end
-      end
+  let! (:performance) do
+    contest_category = create(:contest_category, contest: create(:contest, host: host))
+    create(:performance, contest_category: contest_category)
+  end
 
-      it "grants access to inspectors" do
-        expect(subject).to permit(build(:inspector), build(:performance))
-      end
+  let! (:foreign_performance) { create(:performance) }
+  let! (:successor_performance) { create(:performance, predecessor: performance) }
 
-      it "grants access to admins" do
-        expect(subject).to permit(build(:admin), build(:performance))
+  context "for regular users" do
+    let (:user) { build(:user) }
+
+    it { is_expected.to forbid_action(:show) }
+
+    describe "associated with the performance's contest host" do
+      let (:user) { build(:user, hosts: [host]) }
+      it { is_expected.to permit_action(:show) }
+
+      it "lists only performances whose contest or predecessor's contest have a host associated with the user" do
+        expect(resolved_scope).to match_array [performance, successor_performance]
       end
     end
   end
 
-  describe "scope" do
-    subject (:policy_scope) { PerformancePolicy::Scope.new(user, scope).resolve }
+  context "for inspectors" do
+    let (:user) { build(:inspector) }
 
-    let (:scope) { Performance.all }
-    let (:host) { create(:host) }
+    it { is_expected.to permit_action(:show) }
 
-    # Contest and performance associated with the host
-    let (:contest1) { create(:contest, host: host) }
-    let (:contest1_cat) { create(:contest_category, contest: contest1) }
-    let (:performance1) { create(:performance, contest_category: contest1_cat) }
-
-    # "Foreign" contest and performance
-    let (:contest2) { create(:contest) }
-    let (:contest2_cat) { create(:contest_category, contest: contest2) }
-    let (:performance2) { create(:performance, contest_category: contest2_cat) }
-
-    # Performance in foreign contest, but with predecessor in host's own contest
-    let (:performance3) do
-      create(:performance, contest_category: contest2_cat, predecessor: performance1)
+    it "lists all performances" do
+      expect(resolved_scope).to match_array [performance, foreign_performance, successor_performance]
     end
+  end
 
-    context "for regular users" do
-      let (:user) { User.new(hosts: [host]) }
+  context "for admins" do
+    let (:user) { build(:admin) }
 
-      it "hides performances whose contest host or predecessor's contest host is not among the user's hosts" do
-        expect(policy_scope).to eq [performance1, performance3]
-      end
-    end
+    it { is_expected.to permit_action(:show) }
 
-    context "for inspectors" do
-      let (:user) { build(:inspector) }
-
-      it "shows all performances" do
-        expect(policy_scope).to eq [performance1, performance2, performance3]
-      end
-    end
-
-    context "for admins" do
-      let (:user) { build(:admin) }
-
-      it "shows all performances" do
-        expect(policy_scope).to eq [performance1, performance2, performance3]
-      end
+    it "lists all performances" do
+      expect(resolved_scope).to match_array [performance, foreign_performance, successor_performance]
     end
   end
 end

@@ -1,60 +1,48 @@
 RSpec.describe ContestCategoryPolicy do
 
-  describe "action" do
+  subject { described_class.new(user, contest_category) }
 
-    subject { ContestCategoryPolicy }
+  let (:resolved_scope) do
+    described_class::Scope.new(user, ContestCategory.all).resolve
+  end
 
-    permissions :destroy? do
-      it "denies access to regular users" do
-        expect(subject).not_to permit(build(:user))
-      end
+  let (:host) { build(:host) }
 
-      it "denies access to inspectors" do
-        expect(subject).not_to permit(build(:inspector))
-      end
+  # Create primary contest category within one of the user's contests
+  let (:user_contest) { create(:contest, host: host) }
+  let! (:contest_category) { create(:contest_category, contest: user_contest) }
 
-      it "grants access to admins" do
-        expect(subject).to permit(build(:admin))
-      end
+  # Create another contest category that's not in the user's contests
+  let (:foreign_contest) { create(:contest) }
+  let! (:foreign_contest_category) { create(:contest_category, contest: foreign_contest) }
+
+  context "for regular users" do
+    let (:user) { build(:user, hosts: [host]) }
+
+    it { is_expected.to forbid_action(:destroy) }
+
+    it "lists only contest categories from user's own contests" do
+      expect(resolved_scope).to match_array [contest_category]
     end
   end
 
-  describe "scope" do
-    subject (:policy_scope) { ContestCategoryPolicy::Scope.new(user, scope).resolve }
+  context "for inspectors" do
+    let (:user) { build(:inspector) }
 
-    let (:scope) { ContestCategory.all }
-    let (:host) { create(:host) }
+    it { is_expected.to forbid_action(:destroy) }
 
-    # Contest and contest category "owned" by the user
-    let! (:own_contest) { create(:contest, host: host) }
-    let! (:own_contest_cat) { create(:contest_category, contest: own_contest) }
-
-    # "Foreign" contest and contest category
-    let! (:foreign_contest) { create(:contest) }
-    let! (:foreign_contest_cat) { create(:contest_category, contest: foreign_contest) }
-
-    context "for regular users" do
-      let (:user) { User.new(hosts: [host]) }
-
-      it "hides contest categories whose contest host is not among the user's hosts" do
-        expect(policy_scope).to eq [own_contest_cat]
-      end
+    it "list all contest categories" do
+      expect(resolved_scope).to match_array [contest_category, foreign_contest_category]
     end
+  end
 
-    context "for inspectors" do
-      let (:user) { build(:inspector) }
+  context "for admins" do
+    let (:user) { build(:admin) }
 
-      it "shows all contest categories" do
-        expect(policy_scope).to eq [own_contest_cat, foreign_contest_cat]
-      end
-    end
+    it { is_expected.to permit_action(:destroy) }
 
-    context "for admins" do
-      let (:user) { build(:admin) }
-
-      it "shows all contest categories" do
-        expect(policy_scope).to eq [own_contest_cat, foreign_contest_cat]
-      end
+    it "lists all contest categories" do
+      expect(resolved_scope).to match_array [contest_category, foreign_contest_category]
     end
   end
 end

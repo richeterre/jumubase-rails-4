@@ -8,7 +8,7 @@ class CategoryPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       else
-        nil
+        scope.none
       end
     end
   end

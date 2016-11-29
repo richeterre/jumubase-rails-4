@@ -102,6 +102,9 @@ GEM
     pg (0.18.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
+    pundit-matchers (1.1.0)
+      pundit (~> 1.1, >= 1.1.0)
+      rspec-rails (>= 3.0.0)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -209,6 +212,7 @@ DEPENDENCIES
   jquery-rails
   pg (~> 0.15)
   pundit
+  pundit-matchers (= 1.1.0)
   rack-cors
   rails (= 4.2.5)
   rspec-rails (~> 3.0)
