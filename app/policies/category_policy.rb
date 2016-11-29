@@ -1,5 +1,5 @@
 class CategoryPolicy < ApplicationPolicy
-  def index
+  def index?
     user.admin?
   end
 
