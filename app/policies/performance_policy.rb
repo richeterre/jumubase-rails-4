@@ -12,7 +12,7 @@ class PerformancePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin? || user.inspector?
-        scope
+        scope.all
       else
         # Get the ids of all contest categories the user can access
         contest_category_ids = ContestCategoryPolicy::Scope.new(user, ContestCategory).resolve.select("id")
