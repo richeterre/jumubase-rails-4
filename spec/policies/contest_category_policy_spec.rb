@@ -5,16 +5,16 @@ RSpec.describe ContestCategoryPolicy do
     subject { ContestCategoryPolicy }
 
     permissions :destroy? do
-      it "is denied for regular users" do
-        expect(subject).not_to permit(build(:user), Contest)
+      it "denies access to regular users" do
+        expect(subject).not_to permit(build(:user))
       end
 
-      it "is denied for inspectors" do
-        expect(subject).not_to permit(build(:inspector), Contest)
+      it "denies access to inspectors" do
+        expect(subject).not_to permit(build(:inspector))
       end
 
-      it "is allowed for admins" do
-        expect(subject).to permit(build(:admin), Contest)
+      it "grants access to admins" do
+        expect(subject).to permit(build(:admin))
       end
     end
   end

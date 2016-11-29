@@ -18,53 +18,25 @@ RSpec.describe ContestPolicy do
       end
 
       it "grants access to inspectors" do
-        expect(subject).to permit(build(:inspector), Contest.new)
+        expect(subject).to permit(build(:inspector))
       end
 
       it "grants access to admins" do
-        expect(subject).to permit(build(:admin), Contest.new)
+        expect(subject).to permit(build(:admin))
       end
     end
 
-    permissions :create? do
+    permissions :create?, :update?, :index_contest_categories? do
       it "is denied for regular users" do
-        expect(subject).not_to permit(build(:user), Contest)
+        expect(subject).not_to permit(build(:user))
       end
 
       it "is denied for inspectors" do
-        expect(subject).not_to permit(build(:inspector), Contest)
+        expect(subject).not_to permit(build(:inspector))
       end
 
       it "is allowed for admins" do
-        expect(subject).to permit(build(:admin), Contest)
-      end
-    end
-
-    permissions :update? do
-      it "is denied for regular users" do
-        expect(subject).not_to permit(build(:user), Contest)
-      end
-
-      it "is denied for inspectors" do
-        expect(subject).not_to permit(build(:inspector), Contest)
-      end
-
-      it "is allowed for admins" do
-        expect(subject).to permit(build(:admin), Contest)
-      end
-    end
-
-    permissions :index_contest_categories? do
-      it "is denied for regular users" do
-        expect(subject).not_to permit(build(:user), Contest)
-      end
-
-      it "is denied for inspectors" do
-        expect(subject).not_to permit(build(:inspector), Contest)
-      end
-
-      it "is allowed for admins" do
-        expect(subject).to permit(build(:admin), Contest)
+        expect(subject).to permit(build(:admin))
       end
     end
 
@@ -80,11 +52,11 @@ RSpec.describe ContestPolicy do
       end
 
       it "grants access to inspectors" do
-        expect(subject).to permit(build(:inspector), Contest.new)
+        expect(subject).to permit(build(:inspector))
       end
 
       it "grants access to admins" do
-        expect(subject).to permit(build(:admin), Contest.new)
+        expect(subject).to permit(build(:admin))
       end
     end
   end
