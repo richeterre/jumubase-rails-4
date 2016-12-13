@@ -19,9 +19,9 @@ RSpec.describe ContestCategory, type: :model do
 
   # Associations
 
-  it { should respond_to(:contest) }
-  it { should respond_to(:category) }
-  it { should respond_to(:performances) }
+  it { is_expected.to respond_to(:contest) }
+  it { is_expected.to respond_to(:category) }
+  it { is_expected.to respond_to(:performances) }
 
   it "should destroy its associated performances" do
     contest_category = create(:contest_category, performances: build_list(:performance, 3))
@@ -30,15 +30,15 @@ RSpec.describe ContestCategory, type: :model do
 
   # Validations
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "without a contest" do
     before { contest_category.contest = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a category" do
     before { contest_category.category = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 end

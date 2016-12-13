@@ -15,10 +15,10 @@ RSpec.describe Instrument, type: :model do
 
   subject { instrument }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "without a name" do
     before { instrument.name = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 end

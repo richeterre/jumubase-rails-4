@@ -30,26 +30,26 @@ RSpec.describe User, type: :model do
 
   # Associations
 
-  it { should respond_to(:first_name) }
-  it { should respond_to(:last_name) }
+  it { is_expected.to respond_to(:first_name) }
+  it { is_expected.to respond_to(:last_name) }
 
   # Validations
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "without a first name" do
     before { user.first_name = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a last name" do
     before { user.last_name = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a role" do
     before { user.role = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "with an invalid role" do

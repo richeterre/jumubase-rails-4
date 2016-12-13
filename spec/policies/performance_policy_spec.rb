@@ -25,7 +25,7 @@ RSpec.describe PerformancePolicy do
       let (:user) { build(:user, hosts: [host]) }
       it { is_expected.to permit_action(:show) }
 
-      it "lists only performances whose contest or predecessor's contest have a host associated with the user" do
+      it "should list only performances whose contest or predecessor's contest have a host associated with the user" do
         expect(resolved_scope).to match_array [performance, successor_performance]
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe PerformancePolicy do
 
     it { is_expected.to permit_action(:show) }
 
-    it "lists all performances" do
+    it "should list all performances" do
       expect(resolved_scope).to match_array [performance, foreign_performance, successor_performance]
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe PerformancePolicy do
 
     it { is_expected.to permit_action(:show) }
 
-    it "lists all performances" do
+    it "should list all performances" do
       expect(resolved_scope).to match_array [performance, foreign_performance, successor_performance]
     end
   end

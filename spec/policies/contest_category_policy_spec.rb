@@ -21,7 +21,7 @@ RSpec.describe ContestCategoryPolicy do
 
     it { is_expected.to forbid_action(:destroy) }
 
-    it "lists only contest categories from user's own contests" do
+    it "should list only contest categories from user's own contests" do
       expect(resolved_scope).to match_array [contest_category]
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe ContestCategoryPolicy do
 
     it { is_expected.to forbid_action(:destroy) }
 
-    it "list all contest categories" do
+    it "should list all contest categories" do
       expect(resolved_scope).to match_array [contest_category, foreign_contest_category]
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe ContestCategoryPolicy do
 
     it { is_expected.to permit_action(:destroy) }
 
-    it "lists all contest categories" do
+    it "should list all contest categories" do
       expect(resolved_scope).to match_array [contest_category, foreign_contest_category]
     end
   end

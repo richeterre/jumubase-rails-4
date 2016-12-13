@@ -30,7 +30,7 @@ RSpec.describe ContestPolicy do
       it { is_expected.to permit_action(:show) }
       it { is_expected.to permit_action(:index_performances) }
 
-      it "lists only contests whose host is associated with the user" do
+      it "should list only contests whose host is associated with the user" do
         expect(resolved_scope).to match_array [contest]
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe ContestPolicy do
 
     it { is_expected.to permit_action(:show) }
 
-    it "lists all contests" do
+    it "should list all contests" do
       expect(resolved_scope).to match_array [contest, foreign_contest]
     end
   end
@@ -59,7 +59,7 @@ RSpec.describe ContestPolicy do
 
     it { is_expected.to permit_action(:show) }
 
-    it "lists all contests" do
+    it "should list all contests" do
       expect(resolved_scope).to match_array [contest, foreign_contest]
     end
   end

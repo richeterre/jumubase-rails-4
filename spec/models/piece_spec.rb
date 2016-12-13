@@ -23,26 +23,26 @@ RSpec.describe Piece, type: :model do
 
   subject { piece }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "without an associated performance" do
     before { piece.performance = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a title" do
     before { piece.title = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a composer name" do
     before { piece.composer_name = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without an epoch" do
     before { piece.epoch = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "with an invalid epoch" do
@@ -56,12 +56,12 @@ RSpec.describe Piece, type: :model do
 
   describe "without a minutes value" do
     before { piece.minutes = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a seconds value" do
     before { piece.seconds = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "with invalid minutes" do

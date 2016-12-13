@@ -17,15 +17,15 @@ RSpec.describe Venue, type: :model do
 
   subject { venue }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "without a name" do
     before { venue.name = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without an associated host" do
     before { venue.host = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 end

@@ -22,9 +22,9 @@ RSpec.describe Appearance, type: :model do
 
   # Associations
 
-  it { should respond_to(:performance) }
-  it { should respond_to(:participant) }
-  it { should respond_to(:instrument) }
+  it { is_expected.to respond_to(:performance) }
+  it { is_expected.to respond_to(:participant) }
+  it { is_expected.to respond_to(:instrument) }
 
   describe "when created with a nested participant" do
     before do
@@ -48,8 +48,8 @@ RSpec.describe Appearance, type: :model do
         params[:participant_attributes] = attributes_for(:participant)
       end
 
-      it { should change(Appearance, :count).by(1) }
-      it { should change(Participant, :count).by(1) }
+      it { is_expected.to change(Appearance, :count).by(1) }
+      it { is_expected.to change(Participant, :count).by(1) }
     end
 
     describe "that already exists" do
@@ -61,8 +61,8 @@ RSpec.describe Appearance, type: :model do
           params[:participant_attributes] = @participant.attributes
         end
 
-        it { should change(Appearance, :count).by(1) }
-        it { should change(Participant, :count).by(0) }
+        it { is_expected.to change(Appearance, :count).by(1) }
+        it { is_expected.to change(Participant, :count).by(0) }
       end
 
       describe "with different data" do
@@ -72,9 +72,9 @@ RSpec.describe Appearance, type: :model do
               .update({ "first_name" => "Different" })
         end
 
-        it { should change(Appearance, :count).by(1) }
-        it { should change(Participant, :count).by(0) }
-        it { should change {
+        it { is_expected.to change(Appearance, :count).by(1) }
+        it { is_expected.to change(Participant, :count).by(0) }
+        it { is_expected.to change {
           Participant.find(@participant.id).first_name
         }.to("Different") }
       end
@@ -83,26 +83,26 @@ RSpec.describe Appearance, type: :model do
 
   # Validations
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   describe "without an associated performance" do
     before { appearance.performance = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without an associated participant" do
     before { appearance.participant = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without an associated instrument" do
     before { appearance.instrument = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "without a participant role" do
     before { appearance.participant_role = nil }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe "with an invalid participant role" do
@@ -128,15 +128,15 @@ RSpec.describe Appearance, type: :model do
   describe "with a soloist" do
     before { appearance.participant_role = 'soloist' }
 
-    it "tells it's a solo appearance" do
+    it "should tell that it's a solo appearance" do
       expect(appearance.solo?).to be_truthy
     end
 
-    it "tells it's no ensemble appearance" do
+    it "should tell that it's not an ensemble appearance" do
       expect(appearance.ensemble?).to be_falsy
     end
 
-    it "tells it's no accompaniment appearance" do
+    it "should tell that it's not an accompaniment appearance" do
       expect(appearance.accompaniment?).to be_falsy
     end
   end
@@ -144,15 +144,15 @@ RSpec.describe Appearance, type: :model do
   describe "with an ensemblist" do
     before { appearance.participant_role = 'ensemblist' }
 
-    it "tells it's no solo appearance" do
+    it "should tell that it's not a solo appearance" do
       expect(appearance.solo?).to be_falsy
     end
 
-    it "tells it's an ensemble appearance" do
+    it "should tell that it's an ensemble appearance" do
       expect(appearance.ensemble?).to be_truthy
     end
 
-    it "tells it's no accompaniment appearance" do
+    it "should tell that it's not an accompaniment appearance" do
       expect(appearance.accompaniment?).to be_falsy
     end
   end
@@ -160,15 +160,15 @@ RSpec.describe Appearance, type: :model do
   describe "with an accompanist" do
     before { appearance.participant_role = 'accompanist' }
 
-    it "tells it's no solo appearance" do
+    it "should tell that it's not a solo appearance" do
       expect(appearance.solo?).to be_falsy
     end
 
-    it "tells it's no ensemble appearance" do
+    it "should tell that it's not an ensemble appearance" do
       expect(appearance.ensemble?).to be_falsy
     end
 
-    it "tells it's an accompaniment appearance" do
+    it "should tell that it's an accompaniment appearance" do
       expect(appearance.accompaniment?).to be_truthy
     end
   end

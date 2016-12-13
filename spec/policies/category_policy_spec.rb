@@ -13,7 +13,7 @@ RSpec.describe CategoryPolicy do
 
     it { is_expected.to forbid_action(:index) }
 
-    it "doesn't list any categories" do
+    it "should not list any categories" do
       expect(resolved_scope).to match_array []
     end
   end
@@ -23,7 +23,7 @@ RSpec.describe CategoryPolicy do
 
     it { is_expected.to forbid_action(:index) }
 
-    it "doesn't list any categories" do
+    it "should not list any categories" do
       expect(resolved_scope).to match_array []
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe CategoryPolicy do
 
     it { is_expected.to permit_action(:index) }
 
-    it "lists all categories" do
+    it "should list all categories" do
       expect(resolved_scope).to match_array [category]
     end
   end
